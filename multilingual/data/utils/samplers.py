@@ -1,5 +1,3 @@
-# Copyright 2021 TUNiB Inc.
-
 from operator import itemgetter
 from typing import Iterator, Optional
 

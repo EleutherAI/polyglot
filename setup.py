@@ -1,6 +1,3 @@
-# Copyright 2021 TUNiB Inc.
-
-
 from setuptools import find_packages, setup
 
 VERSION = {}  # type: ignore

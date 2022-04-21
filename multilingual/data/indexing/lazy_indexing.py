@@ -1,5 +1,4 @@
 # coding=utf-8
-# Copyright 2021 TUNiB Inc.
 # Copyright (c) Facebook, Inc. and its affiliates.
 #
 # This source code is licensed under the MIT license found in the

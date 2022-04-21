@@ -1,6 +1,3 @@
-# Copyright 2021 TUNiB Inc.
-
-
 class InfiniteDataLoader:
     """
     Make dataloader to have infinite iterator
