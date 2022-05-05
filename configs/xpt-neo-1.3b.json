@@ -1,0 +1,82 @@
+{
+    "model_name": "EleutherAI/gpt-neo-1.3B",
+    "tokenizer_name": "skt/kogpt2-base-v2",
+    "datasets": {
+        "names": [
+        {
+            "name": "datasets/nikl1",
+            "weight": 0.2
+        },
+        {
+            "name": "datasets/nikl2",
+            "weight": 0.4
+        },
+        {
+            "name": "datasets/nikl3",
+            "weight": 0.4
+        }
+        ],
+        "params": {
+            "train": {
+                "start_weight": 0.0,
+                "end_weight": 0.997
+            },
+            "valid": {
+                "start_weight": 0.997,
+                "end_weight": 1.0
+            },
+            "binarization_impl": "mmap",
+            "append_eod": true,
+            "log_interval": 10000
+        }
+    },
+    "experiment": {
+        "type": "xpt-neo",
+        "name": "1.3B-training",
+        "args": {
+            "num_itl_layers": 1,
+            "pos_emb_requires_grad": true,
+            "phase1_steps": 5,
+            "phase2_steps": 5
+        },
+        "checkpoint_params": {
+            "save_dir": "./checkpoints",
+            "save_interval": 5000
+        },
+        "eval_interval": 1000,
+        "max_eval_steps": 5
+    },
+    "training": {
+        "train_batch_size": 8,
+        "optimizer": {
+            "type": "Adam",
+            "params": {
+                "lr": 5e-5,
+                "weight_decay": 5e-7
+            }
+        },
+        "scheduler": {
+            "type": "WarmupDecayLR",
+            "params": {
+                "total_num_steps": null
+            },
+            "warmup_min_lr": 0,
+            "warmup_num_steps": 1000
+        },
+        "fp16": {
+            "enable": true
+        },
+        "zero_optimization": {
+            "stage": 2,
+            "allgather_partitions": true,
+            "allgather_bucket_size": 2e8,
+            "overlap_comm": true,
+            "reduce_scatter": true,
+            "reduce_bucket_size": 2e8,
+            "contiguous_gradients": true
+        },
+        "zero_allow_untested_optimizer": true,
+        "wall_clock_breakdown": false,
+        "steps_per_print": 9999999999
+    }
+}
