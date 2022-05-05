@@ -18,6 +18,26 @@ from multilingual.data.utils.blenders import DatasetBlender
 from multilingual.models.xpt_neo.modeling_xpt_neo import XPTNeoForCausalLM
 from multilingual.utils import optimized_params, set_seed, get_lr
 
+from setproctitle import setproctitle
+
+setproctitle("jungseob-XPT-neo")
+
+
+class CheckPhase:
+    def __init__(self, initial_phase):
+        assert initial_phase in [
+            "phase1",
+            "phase2",
+        ], "'initial_phase' must be 'phase1' or 'phase2'"
+        self.phase = initial_phase
+
+    def __call__(self):
+        return self.phase
+
+    def set_phase(self, current_phase):
+        self.phase = current_phase
+
+
 # Initialize program
 SEED = 42
 CURRENT_STEP = 0
@@ -47,18 +67,29 @@ model.initialize_xpt(
     pos_emb_requires_grad=config["experiment"]["args"]["pos_emb_requires_grad"],
 )
 
+# Initialize config parse
+total_num_steps = (
+    config["experiment"]["args"]["phase1_steps"]
+    + config["experiment"]["args"]["phase2_steps"]
+)
+config["training"]["scheduler"]["params"]["total_num_steps"] = total_num_steps
+if config["experiment"]["args"]["phase1_steps"] > 0:
+    phase_detector = CheckPhase("phase1")
+else:
+    phase_detector = CheckPhase("phase2")
+
 
 # Load datasets
 train_sets, valid_sets = [], []
-for dataset in config["datasets"]:
+for dataset in config["datasets"]["names"]:
     train_sets.append(
         DatasetForCausalLM(
             data_name=dataset["name"],
             max_seq_length=model.config.max_position_embeddings,
-            binarization_impl="mmap",
+            binarization_impl=config["datasets"]["params"]["binarization_impl"],
             split_type="train",
-            start_weight=0.0,
-            end_weight=0.99,
+            start_weight=config["datasets"]["params"]["train"]["start_weight"],
+            end_weight=config["datasets"]["params"]["train"]["end_weight"],
             seed=SEED,
         )
     )
@@ -66,10 +97,10 @@ for dataset in config["datasets"]:
         DatasetForCausalLM(
             data_name=dataset["name"],
             max_seq_length=model.config.max_position_embeddings,
-            binarization_impl="mmap",
+            binarization_impl=config["datasets"]["params"]["binarization_impl"],
             split_type="valid",
-            start_weight=0.99,
-            end_weight=1.0,
+            start_weight=config["datasets"]["params"]["valid"]["start_weight"],
+            end_weight=config["datasets"]["params"]["valid"]["end_weight"],
             seed=SEED,
         )
     )
@@ -77,12 +108,12 @@ for dataset in config["datasets"]:
 
 train_dataset = DatasetBlender(
     datasets=train_sets,
-    weights=[d["weight"] for d in config["datasets"]],
+    weights=[d["weight"] for d in config["datasets"]["names"]],
 )
 
 valid_dataset = DatasetBlender(
     datasets=valid_sets,
-    weights=[d["weight"] for d in config["datasets"]],
+    weights=[d["weight"] for d in config["datasets"]["names"]],
 )
 
 train_loader = DataLoader(
@@ -126,11 +157,17 @@ if dist.get_rank() == 0:
 wandb_generation_table = []
 
 while True:
-    if CURRENT_STEP >= config["training"]["scheduler"]["params"]["total_num_steps"]:
+    if CURRENT_STEP >= total_num_steps:
         break
 
     for train_data in train_loader:
-        if CURRENT_STEP >= config["training"]["scheduler"]["params"]["total_num_steps"]:
+        if CURRENT_STEP == config["experiment"]["args"]["phase1_steps"]:
+            model.phase2()
+            if dist.get_rank() == 0:
+                phase_detector.set_phase(current_phase="phase2")
+                print("START Phase-2")
+
+        if CURRENT_STEP >= total_num_steps:
             break
 
         engine.train()
@@ -142,23 +179,24 @@ while True:
         ).loss
 
         if dist.get_rank() == 0:
+            ppl = math.exp(loss.item())
             wandb.log(
                 data={
-                    "train_loss": loss.item(),
-                    "train_ppl": math.exp(loss.item()),
+                    f"{phase_detector()}/train_loss": loss.item(),
+                    f"{phase_detector()}/train_ppl": ppl,
                     "lr": get_lr(optimizer),
                 },
                 step=CURRENT_STEP,
             )
             print(
-                f"STEP: {CURRENT_STEP}/"
-                f"{config['training']['scheduler']['params']['total_num_steps']}, "
-                f"LOSS: {loss}"
+                f"STEP: {CURRENT_STEP}/" f"{total_num_steps}, " f"LOSS: {loss}, ",
+                f"PPL: {ppl}",
             )
 
         engine.backward(loss)
         engine.step()
 
+        # if CURRENT_STEP % config["experiment"]["eval_interval"] == 0 and CURRENT_STEP != 0:
         if CURRENT_STEP % config["experiment"]["eval_interval"] == 0:
             if dist.get_rank() == 0:
                 print("START VALIDATION")
@@ -167,7 +205,18 @@ while True:
                 model.eval()
                 val_losses, valid_samples = [], []
 
-                for valid_data in tqdm(valid_loader):
+                if config["experiment"]["max_eval_steps"] is not None:
+                    eval_total = config["experiment"]["max_eval_steps"]
+                else:
+                    eval_total = len(valid_loader) + 1
+
+                for eval_steps, valid_data in enumerate(
+                    tqdm(valid_loader, total=eval_total)
+                ):
+                    if config["experiment"]["max_eval_steps"] is not None:
+                        if eval_steps > config["experiment"]["max_eval_steps"]:
+                            break
+
                     valid_data = valid_data.cuda()
                     val_loss = engine(
                         input_ids=valid_data,
@@ -187,27 +236,35 @@ while True:
                     [CURRENT_STEP, tokenizer.decode(sample), generated_text]
                 )
 
-                save_dir = os.path.join(
-                    config["experiment"]["save_dir"],
-                    f"{config['experiment']['type']}-"
-                    f"{config['experiment']['name']}-"
-                    f"steps={CURRENT_STEP}",
-                )
+                if (
+                    CURRENT_STEP
+                    % config["experiment"]["checkpoint_params"]["save_interval"]
+                    == 0
+                    and CURRENT_STEP != 0
+                ):
+                    save_dir = os.path.join(
+                        config["experiment"]["checkpoint_params"]["save_dir"],
+                        f"{config['experiment']['type']}-"
+                        f"{config['experiment']['name']}-"
+                        f"steps={CURRENT_STEP}",
+                    )
 
                 if dist.get_rank() == 0:
+                    val_ppl = math.exp(val_loss)
                     print("=" * 100)
                     print(
                         f"STEP: {CURRENT_STEP}/"
-                        f"{config['training']['scheduler']['params']['total_num_steps']}, "
-                        f"LOSS: {loss}"
+                        f"{total_num_steps}, "
+                        f"LOSS: {val_loss}, ",
+                        f"PPL: {val_ppl}",
                     )
                     print("=" * 100)
 
                     wandb.log(
                         data={
-                            "val_loss": val_loss,
-                            "val_ppl": math.exp(val_loss),
-                            "generation": Table(
+                            f"{phase_detector()}/val_loss": val_loss,
+                            f"{phase_detector()}/val_ppl": math.exp(val_loss),
+                            f"{phase_detector()}/generation": Table(
                                 columns=["Step", "Input Prompt", "Generated Text"],
                                 data=wandb_generation_table,
                             ),
@@ -215,7 +272,14 @@ while True:
                         step=CURRENT_STEP,
                     )
 
-                    model.save_pretrained(save_dir)
+                    if (
+                        CURRENT_STEP
+                        % config["experiment"]["checkpoint_params"]["save_interval"]
+                        == 0
+                        and CURRENT_STEP != 0
+                    ):
+                        model.save_pretrained(save_dir)
+
                 engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
 
         CURRENT_STEP += 1

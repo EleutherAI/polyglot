@@ -7,7 +7,7 @@ from transformers.modeling_outputs import CausalLMOutputWithPast
 from transformers.models.gpt_neo.modeling_gpt_neo import (
     GPTNeoModel,
     GPTNeoPreTrainedModel,
-    GPTNeoBlock
+    GPTNeoBlock,
 )
 
 
@@ -99,6 +99,13 @@ class XPTNeoForCausalLM(GPTNeoPreTrainedModel):
             "attention_mask": attention_mask,
             "token_type_ids": token_type_ids,
         }
+
+    def phase2(self):
+        """
+        Set require_grad of all parameters to True
+        """
+        for _, param in self.named_parameters():
+            param.requires_grad = True
 
     def forward(
         self,

@@ -15,14 +15,14 @@ os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 preprocessor = DatasetPreprocessor(
     tokenizer=tokenizer,
-    binarization_impl="mmap",
+    binarization_impl=config["datasets"]["params"]["binarization_impl"],
     eod_token_id=tokenizer.eos_token_id,
-    append_eod=True,
+    append_eod=config["datasets"]["params"]["append_eod"],
 )
 
-for dataset in config["datasets"]:
+for dataset in config["datasets"]["names"]:
     preprocessor.preprocess(
         open(dataset["name"] + ".txt"),
         save_file_name=dataset["name"],
-        log_interval=100,
+        log_interval=config["datasets"]["params"]["log_interval"],
     )

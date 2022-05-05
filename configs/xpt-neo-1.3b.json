@@ -1,18 +1,18 @@
 {
-    "model_name": "EleutherAI/gpt-neo-125M",
+    "model_name": "EleutherAI/gpt-neo-1.3B",
     "tokenizer_name": "skt/kogpt2-base-v2",
     "datasets": {
         "names": [
         {
-            "name": "datasets/dialogue",
+            "name": "datasets/nikl1",
             "weight": 0.2
         },
         {
-            "name": "datasets/news",
+            "name": "datasets/nikl2",
             "weight": 0.4
         },
         {
-            "name": "datasets/others",
+            "name": "datasets/nikl3",
             "weight": 0.4
         }
         ],
