@@ -1,28 +1,53 @@
 {
     "model_name": "EleutherAI/gpt-neo-125M",
     "tokenizer_name": "skt/kogpt2-base-v2",
-    "datasets": [
-        {
-            "name": "datasets/news",
-            "weight": 0.5
-        },
+    "datasets": {
+        "names": [
         {
             "name": "datasets/dialogue",
-            "weight": 0.5
+            "weight": 0.2
+        },
+        {
+            "name": "datasets/news",
+            "weight": 0.4
+        },
+        {
+            "name": "datasets/others",
+            "weight": 0.4
         }
-    ],
+        ],
+        "params": {
+            "train": {
+                "start_weight": 0.0,
+                "end_weight": 0.997
+            },
+            "valid": {
+                "start_weight": 0.997,
+                "end_weight": 1.0
+            },
+            "binarization_impl": "mmap",
+            "append_eod": true,
+            "log_interval": 10000
+        }
+    },
     "experiment": {
         "type": "xpt-neo",
-        "name": "125m-training",
+        "name": "1.3B-training",
         "args": {
             "num_itl_layers": 1,
-            "pos_emb_requires_grad": true
+            "pos_emb_requires_grad": true,
+            "phase1_steps": 5,
+            "phase2_steps": 5
         },
-        "save_dir": "./checkpoints",
-        "eval_interval": 1000
+        "checkpoint_params": {
+            "save_dir": "./checkpoints",
+            "save_interval": 5000
+        },
+        "eval_interval": 1000,
+        "max_eval_steps": 5
     },
     "training": {
-        "train_batch_size": 16,
+        "train_batch_size": 8,
         "optimizer": {
             "type": "Adam",
             "params": {
@@ -33,7 +58,7 @@
         "scheduler": {
             "type": "WarmupDecayLR",
             "params": {
-                "total_num_steps": 100000
+                "total_num_steps": null
             },
             "warmup_min_lr": 0,
             "warmup_num_steps": 1000
