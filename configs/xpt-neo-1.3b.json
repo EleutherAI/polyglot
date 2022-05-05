@@ -36,8 +36,8 @@
         "args": {
             "num_itl_layers": 1,
             "pos_emb_requires_grad": true,
-            "phase1_steps": 5,
-            "phase2_steps": 5
+            "phase1_steps": 10000,
+            "phase2_steps": 10000
         },
         "checkpoint_params": {
             "save_dir": "./checkpoints",

@@ -18,10 +18,6 @@ from multilingual.data.utils.blenders import DatasetBlender
 from multilingual.models.xpt_neo.modeling_xpt_neo import XPTNeoForCausalLM
 from multilingual.utils import optimized_params, set_seed, get_lr
 
-from setproctitle import setproctitle
-
-setproctitle("jungseob-XPT-neo")
-
 
 class CheckPhase:
     def __init__(self, initial_phase):
@@ -196,8 +192,7 @@ while True:
         engine.backward(loss)
         engine.step()
 
-        # if CURRENT_STEP % config["experiment"]["eval_interval"] == 0 and CURRENT_STEP != 0:
-        if CURRENT_STEP % config["experiment"]["eval_interval"] == 0:
+        if CURRENT_STEP % config["experiment"]["eval_interval"] == 0 and CURRENT_STEP != 0:
             if dist.get_rank() == 0:
                 print("START VALIDATION")
 
