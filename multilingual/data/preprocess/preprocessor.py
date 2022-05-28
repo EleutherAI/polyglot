@@ -145,8 +145,8 @@ class DatasetPreprocessor(object):
 
         import json
 
-        if file[-6:].lower() != ".jsonl":
-            file = file + ".jsonl"
+#         if file[-6:].lower() != ".jsonl":
+#             file = file + ".jsonl"
 
         source = open(file)
 
