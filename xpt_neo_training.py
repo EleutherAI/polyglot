@@ -114,7 +114,7 @@ valid_dataset = DatasetBlender(
 
 train_loader = DataLoader(
     train_dataset,
-    batch_size=config["training"]["train_batch_size"],
+    batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
@@ -123,7 +123,7 @@ train_loader = DataLoader(
 
 valid_loader = DataLoader(
     valid_dataset,
-    batch_size=config["training"]["train_batch_size"],
+    batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
