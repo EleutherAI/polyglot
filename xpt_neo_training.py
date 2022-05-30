@@ -118,7 +118,7 @@ train_loader = DataLoader(
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
-    sampler=DistributedSampler(train_dataset, shuffle=False),
+    sampler=DistributedSampler(train_dataset, shuffle=True),
 )
 
 valid_loader = DataLoader(
