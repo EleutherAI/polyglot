@@ -80,7 +80,7 @@ train_sets, valid_sets = [], []
 for dataset in config["datasets"]["names"]:
     train_sets.append(
         DatasetForCausalLM(
-            data_name=dataset["name"],
+            data_name=os.path.join(dataset["name"],"train/merge"),
             max_seq_length=model.config.max_position_embeddings,
             binarization_impl=config["datasets"]["params"]["binarization_impl"],
             split_type="train",
@@ -91,7 +91,7 @@ for dataset in config["datasets"]["names"]:
     )
     valid_sets.append(
         DatasetForCausalLM(
-            data_name=dataset["name"],
+            data_name=os.path.join(dataset["name"],"val/merge"),
             max_seq_length=model.config.max_position_embeddings,
             binarization_impl=config["datasets"]["params"]["binarization_impl"],
             split_type="valid",
