@@ -1,1 +1,0 @@
-{"pad_token": "<pad>", "eos_token": "<eos>", "tokenizer_class": "PreTrainedTokenizerFast"}
