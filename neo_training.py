@@ -13,7 +13,6 @@ from transformers import AutoTokenizer, AutoModel, GPTNeoForCausalLM, GPT2Tokeni
 from wandb import Table
 
 from tqdm import tqdm
-#from datasets import tqdm
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
 from multilingual.models.xpt_neo.modeling_xpt_neo import XPTNeoForCausalLM
@@ -35,7 +34,7 @@ parser.add_argument("--config", "-c", type=str, required=True)
 parser.add_argument("--local_rank", type=int)
 config = json.load(open(parser.parse_args().config))
 
-# TODO : modify this block for your model
+# TODO : modify this block for your model #########################
 
 model_config = GPTNeoConfig.from_pretrained(config['model_name'])
 model_config.vocab_size = 30003
@@ -45,6 +44,8 @@ model.load_state_dict(torch.load("start/model.pt"))
 model.gradient_checkpointing_enable()
 
 total_num_steps = 2000000
+
+###################################################################
 
 config["training"]["scheduler"]["params"]["total_num_steps"] = total_num_steps
 
