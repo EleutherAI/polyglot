@@ -20,19 +20,11 @@ preprocessor = DatasetPreprocessor(
     append_eod=config["datasets"]["params"]["append_eod"],
 )
 
-# for dataset in config["datasets"]["names"]:
-#     preprocessor.preprocess(
-#         open(dataset["name"] + ".txt"),
-#         save_file_name=dataset["name"],
-#         log_interval=config["datasets"]["params"]["log_interval"],
-#     )
-
 for dataset in config["datasets"]["names"]:
-    data_list = os.listdir(dataset["name"])
-    for data in data_list :
+    for mode in os.listdir(dataset["name"]) :
         preprocessor.preprocess(
-            preprocessor.open_jsonl(os.path.join(dataset["name"],data),"text"),
+            preprocessor.open_jsonl(os.path.join(dataset["name"],mode,"merge"),"text"),
             #open(dataset["name"]),
-            save_file_name=os.path.join(dataset["name"],data),
+            save_file_name=os.path.join(dataset["name"],mode,"merge"),
             log_interval=config["datasets"]["params"]["log_interval"],
         )

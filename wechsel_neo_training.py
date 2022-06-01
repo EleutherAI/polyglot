@@ -9,30 +9,16 @@ import torch.cuda
 import torch.distributed as dist
 import wandb
 from torch.utils.data import DataLoader, DistributedSampler
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, AutoModel, GPTNeoForCausalLM, GPT2TokenizerFast, GPTNeoConfig
 from wandb import Table
 
-from datasets import tqdm
+from tqdm import tqdm
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
 from multilingual.models.xpt_neo.modeling_xpt_neo import XPTNeoForCausalLM
 from multilingual.utils import optimized_params, set_seed, get_lr
 
-
-class CheckPhase:
-    def __init__(self, initial_phase):
-        assert initial_phase in [
-            "phase1",
-            "phase2",
-        ], "'initial_phase' must be 'phase1' or 'phase2'"
-        self.phase = initial_phase
-
-    def __call__(self):
-        return self.phase
-
-    def set_phase(self, current_phase):
-        self.phase = current_phase
-
+import torch
 
 # Initialize program
 SEED = 42
@@ -47,33 +33,21 @@ parser = ArgumentParser()
 parser.add_argument("--config", "-c", type=str, required=True)
 parser.add_argument("--local_rank", type=int)
 config = json.load(open(parser.parse_args().config))
-assert config["experiment"]["type"] == "xpt-neo", "Wrong experiment type."
 
-# Create tokenizer and model
-tokenizer = AutoTokenizer.from_pretrained(config["tokenizer_name"])
-model = XPTNeoForCausalLM.from_pretrained(config["model_name"])
+# TODO : modify this block for your model #########################
+
+model_config = GPTNeoConfig.from_pretrained(config['model_name'])
+model_config.vocab_size = 30003
+tokenizer = GPT2TokenizerFast.from_pretrained(config['tokenizer_name'])
+model = GPTNeoForCausalLM(model_config)
+model.load_state_dict(torch.load("start/model.pt"))
 model.gradient_checkpointing_enable()
 
-# Initialize XPT training
-model.initialize_xpt(
-    new_embedding_size=len(tokenizer),
-    bos_token_id=tokenizer.bos_token_id,
-    eos_token_id=tokenizer.eos_token_id,
-    num_itl_layers=config["experiment"]["args"]["num_itl_layers"],
-    pos_emb_requires_grad=config["experiment"]["args"]["pos_emb_requires_grad"],
-)
+total_num_steps = 2000000
 
-# Initialize config parse
-total_num_steps = (
-    config["experiment"]["args"]["phase1_steps"]
-    + config["experiment"]["args"]["phase2_steps"]
-)
+###################################################################
+
 config["training"]["scheduler"]["params"]["total_num_steps"] = total_num_steps
-if config["experiment"]["args"]["phase1_steps"] > 0:
-    phase_detector = CheckPhase("phase1")
-else:
-    phase_detector = CheckPhase("phase2")
-
 
 # Load datasets
 train_sets, valid_sets = [], []
@@ -114,7 +88,7 @@ valid_dataset = DatasetBlender(
 
 train_loader = DataLoader(
     train_dataset,
-    batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
+    batch_size=config["training"]["train_batch_size"]//dist.get_world_size(),
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
@@ -123,7 +97,7 @@ train_loader = DataLoader(
 
 valid_loader = DataLoader(
     valid_dataset,
-    batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
+    batch_size=config["training"]["train_batch_size"]//dist.get_world_size(),
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
@@ -145,7 +119,7 @@ engine, optimizer, _, _ = deepspeed.initialize(
 if dist.get_rank() == 0:
     wandb.init(
         name=f"{config['experiment']['type']}-{config['experiment']['name']}",
-        project="XPT-Training",
+        project="WECHSEL-Training",
     )
 
 
@@ -157,12 +131,6 @@ while True:
         break
 
     for train_data in train_loader:
-        if CURRENT_STEP == config["experiment"]["args"]["phase1_steps"]:
-            model.phase2()
-            if dist.get_rank() == 0:
-                phase_detector.set_phase(current_phase="phase2")
-                print("START Phase-2")
-
         if CURRENT_STEP >= total_num_steps:
             break
 
@@ -178,8 +146,8 @@ while True:
             ppl = math.exp(loss.item())
             wandb.log(
                 data={
-                    f"{phase_detector()}/train_loss": loss.item(),
-                    f"{phase_detector()}/train_ppl": ppl,
+                    f"train_loss": loss.item(),
+                    f"train_ppl": ppl,
                     "lr": get_lr(optimizer),
                 },
                 step=CURRENT_STEP,
@@ -257,9 +225,9 @@ while True:
 
                     wandb.log(
                         data={
-                            f"{phase_detector()}/val_loss": val_loss,
-                            f"{phase_detector()}/val_ppl": math.exp(val_loss),
-                            f"{phase_detector()}/generation": Table(
+                            f"val_loss": val_loss,
+                            f"val_ppl": math.exp(val_loss),
+                            f"generation": Table(
                                 columns=["Step", "Input Prompt", "Generated Text"],
                                 data=wandb_generation_table,
                             ),
