@@ -23,19 +23,19 @@
         }
     },
     "experiment": {
-        "type": "WECHSEL",
+        "type": "xpt-neo",
         "name": "125M-training",
         "args": {
             "num_itl_layers": 1,
             "pos_emb_requires_grad": true,
-            "phase1_steps": 5,
-            "phase2_steps": 5
+            "phase1_steps": 100,
+            "phase2_steps": 100
         },
         "checkpoint_params": {
             "save_dir": "./checkpoints",
-            "save_interval": 5000
+            "save_interval": 50
         },
-        "eval_interval": 5000,
+        "eval_interval": 50,
         "max_eval_steps": 5
     },
     "training": {
@@ -53,7 +53,7 @@
                 "total_num_steps": null
             },
             "warmup_min_lr": 0,
-            "warmup_num_steps": 1000
+            "warmup_num_steps": 10
         },
         "fp16": {
             "enable": true
