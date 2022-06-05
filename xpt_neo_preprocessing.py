@@ -18,6 +18,7 @@ preprocessor = DatasetPreprocessor(
     binarization_impl=config["datasets"]["params"]["binarization_impl"],
     eod_token_id=tokenizer.eos_token_id,
     append_eod=config["datasets"]["params"]["append_eod"],
+    chunksize=2048
 )
 
 for dataset in config["datasets"]["names"]:
@@ -25,6 +26,6 @@ for dataset in config["datasets"]["names"]:
         preprocessor.preprocess(
             preprocessor.open_jsonl(os.path.join(dataset["name"],mode,"merge"),"text"),
             #open(dataset["name"]),
-            save_file_name=os.path.join(dataset["name"],mode,"merge"),
+            save_file_name=os.path.join(dataset["name"],mod,"merge"),
             log_interval=config["datasets"]["params"]["log_interval"],
         )
