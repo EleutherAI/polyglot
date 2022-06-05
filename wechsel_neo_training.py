@@ -118,6 +118,7 @@ engine, optimizer, _, _ = deepspeed.initialize(
 # Initialize wandb
 if dist.get_rank() == 0:
     wandb.init(
+        config=config,
         name=f"{config['experiment']['type']}-{config['experiment']['name']}",
         project="WECHSEL-Training",
     )
