@@ -9,7 +9,13 @@ from transformers.models.gpt_neo.modeling_gpt_neo import (
     GPTNeoPreTrainedModel,
     GPTNeoBlock,
 )
+from packaging import version
 
+if version.parse(torch.__version__) >= version.parse("1.6"):
+    is_amp_available = True
+    from torch.cuda.amp import autocast
+else:
+    is_amp_available = False
 
 class XPTNeoForCausalLM(GPTNeoPreTrainedModel):
     _keys_to_ignore_on_load_missing = [
@@ -195,3 +201,56 @@ class XPTNeoForCausalLM(GPTNeoPreTrainedModel):
             )
             for layer_past in past
         )
+
+    def _upcast_and_reordered_attn(self, query, key, value, attention_mask=None, head_mask=None):
+        # Use `torch.baddbmm` (a bit more efficient w/ alpha param for scaling -- from Megatron-LM)
+        bsz, num_heads, q_seq_len, dk = query.size()
+        _, _, k_seq_len, _ = key.size()
+
+        # Preallocate attn_weights for `baddbmm`
+        attn_weights = torch.empty(bsz * num_heads, q_seq_len, k_seq_len, dtype=torch.float32, device=query.device)
+
+        # Compute Scale Factor
+        scale_factor = 1.0
+        if self.scale_attn_weights:
+            scale_factor /= float(value.size(-1)) ** 0.5
+
+        if self.scale_attn_by_inverse_layer_idx:
+            scale_factor /= float(self.layer_idx + 1)
+
+        # Upcast (turn off autocast) and reorder (Scale K by 1 / root(dk))
+        if is_amp_available:
+            with autocast(enabled=False):
+                q, k = query.reshape(-1, q_seq_len, dk), key.transpose(-1, -2).reshape(-1, dk, k_seq_len)
+                attn_weights = torch.baddbmm(attn_weights, q.float(), k.float(), beta=0, alpha=scale_factor)
+                attn_weights = attn_weights.reshape(bsz, num_heads, q_seq_len, k_seq_len)
+        else:
+            q, k = query.reshape(-1, q_seq_len, dk), key.transpose(-1, -2).reshape(-1, dk, k_seq_len)
+            attn_weights = torch.baddbmm(attn_weights, q.float(), k.float(), beta=0, alpha=scale_factor)
+            attn_weights = attn_weights.reshape(bsz, num_heads, q_seq_len, k_seq_len)
+
+        if not self.is_cross_attention:
+            # if only "normal" attention layer implements causal mask
+            query_length, key_length = query.size(-2), key.size(-2)
+            causal_mask = self.bias[:, :, key_length - query_length : key_length, :key_length].bool()
+            attn_weights = torch.where(causal_mask, attn_weights, self.masked_bias.to(attn_weights.dtype))
+
+        if attention_mask is not None:
+            # Apply the attention mask
+            attn_weights = attn_weights + attention_mask
+
+        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
+
+        # Downcast (if necessary) back to V's dtype (if in mixed-precision) -- No-Op if otherwise
+        if attn_weights.dtype != torch.float32:
+            raise RuntimeError("Error with upcasting, attn_weights does not have dtype torch.float32")
+        attn_weights = attn_weights.type(value.dtype)
+        attn_weights = self.attn_dropout(attn_weights)
+
+        # Mask heads if we want to
+        if head_mask is not None:
+            attn_weights = attn_weights * head_mask
+
+        attn_output = torch.matmul(attn_weights, value)
+
+        return attn_output, attn_weights
