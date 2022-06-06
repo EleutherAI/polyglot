@@ -33,7 +33,7 @@ class CheckPhase:
     def set_phase(self, current_phase):
         self.phase = current_phase
 
-
+# TODO add EealryStop configuration
 class EarlyStopping:
     def __init__(self, patience=3, min_delta=0.0, min_steps=0):
         self.patience = patience
@@ -74,6 +74,7 @@ class EarlyStopping:
 # Initialize program
 SEED = 42
 CURRENT_STEP = 0
+REAL_STEP = 0
 dist.init_process_group("nccl")
 torch.cuda.set_device(torch.distributed.get_rank())
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
@@ -88,7 +89,8 @@ assert config["experiment"]["type"] == "xpt-neo", "Wrong experiment type."
 
 # Create tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained(config["tokenizer_name"])
-model = XPTNeoForCausalLM.from_pretrained(config["model_name"])
+model = XPTNeoForCausalLM.from_pretrained(config["model_name"], 
+                                          reorder_and_upcast_attn=config["experiment"]["reorder_and_upcast_attn"])
 model.gradient_checkpointing_enable()
 
 # Initialize XPT training
@@ -151,7 +153,8 @@ valid_dataset = DatasetBlender(
 
 train_loader = DataLoader(
     train_dataset,
-    batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
+    # batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
+    batch_size=config["training"]["train_micro_batch_size_per_gpu"],
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
@@ -160,7 +163,8 @@ train_loader = DataLoader(
 
 valid_loader = DataLoader(
     valid_dataset,
-    batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
+    # batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
+    batch_size=config["training"]["train_micro_batch_size_per_gpu"],
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
@@ -186,9 +190,10 @@ if dist.get_rank() == 0:
         project="XPT-Training",
     )
 
-
 # Set training args
-early_stopping = EarlyStopping(patience=0, min_delta=0.0, min_steps=10000)
+early_stopping = EarlyStopping(patience=config['experiment']['early_stopping_args']['patience'], 
+                                min_delta=config['experiment']['early_stopping_args']['min_delta'], 
+                                min_steps=config['experiment']['early_stopping_args']['min_steps'])
 
 # Start training
 wandb_generation_table = []
@@ -223,10 +228,10 @@ while True:
                     f"{phase_detector()}/train_ppl": ppl,
                     "lr": get_lr(optimizer),
                 },
-                step=CURRENT_STEP,
+                step=REAL_STEP,
             )
             print(
-                f"STEP: {CURRENT_STEP}/" f"{total_num_steps}, " f"LOSS: {loss}, ",
+                f"STEP: {REAL_STEP}/" f"{total_num_steps}, " f"LOSS: {loss}, ",
                 f"PPL: {ppl}, ",
                 f"CURRENT PHASE: {phase_detector().upper()}"
             )
@@ -234,7 +239,7 @@ while True:
         engine.backward(loss)
         engine.step()
 
-        if CURRENT_STEP % config["experiment"]["eval_interval"] == 0 and CURRENT_STEP != 0:
+        if REAL_STEP % config["experiment"]["eval_interval"] == 0 and REAL_STEP != 0:
             if dist.get_rank() == 0:
                 print("START VALIDATION")
 
@@ -271,14 +276,14 @@ while True:
                 print(f"Input Prompt: {input_prompt}")
                 print(f"Generated sentence: {generated_text}")
                 wandb_generation_table.append(
-                    [CURRENT_STEP, input_prompt, generated_text]
+                    [REAL_STEP, input_prompt, generated_text]
                 )
 
             if dist.get_rank() == 0:
                 val_ppl = math.exp(val_loss)
                 print("=" * 100)
                 print(
-                    f"STEP: {CURRENT_STEP}/"
+                    f"STEP: {REAL_STEP}/"
                     f"{total_num_steps}, "
                     f"VALID_LOSS: {val_loss}, ",
                     f"VALID_PPL: {val_ppl}, ",
@@ -295,14 +300,14 @@ while True:
                             data=wandb_generation_table,
                         ),
                     },
-                    step=CURRENT_STEP,
+                    step=REAL_STEP,
                 )
 
                 if (
-                    CURRENT_STEP
+                    REAL_STEP
                     % config["experiment"]["checkpoint_params"]["save_interval"]
                     == 0
-                    and CURRENT_STEP != 0
+                    and REAL_STEP != 0
                 ):
                     print("SAVE CHECKPOINTS...")
                     save_dir = os.path.join(
@@ -310,10 +315,10 @@ while True:
                         f"{phase_detector()}-"
                         f"{config['experiment']['type']}-"
                         f"{config['experiment']['name']}-"
-                        f"steps={CURRENT_STEP}",
+                        f"steps={REAL_STEP}",
                     )
                     model.save_pretrained(save_dir)
-            engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
+                    # engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
 
             if early_stopping(current_steps=CURRENT_STEP, valid_loss=val_loss) and phase_detector() == 'phase1':
                 # finish phase 1
@@ -323,10 +328,10 @@ while True:
                     f"{phase_detector()}-"
                     f"{config['experiment']['type']}-"
                     f"{config['experiment']['name']}-"
-                    f"steps={CURRENT_STEP}",
+                    f"steps={REAL_STEP}",
                 )
                 model.save_pretrained(save_dir)
-                engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
+                # engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
                 CURRENT_STEP = config["experiment"]["args"]["phase1_steps"]
                 early_stopping.reset_()
 
@@ -338,10 +343,11 @@ while True:
                     f"{phase_detector()}-"
                     f"{config['experiment']['type']}-"
                     f"{config['experiment']['name']}-"
-                    f"steps={CURRENT_STEP}",
+                    f"steps={REAL_STEP}",
                 )
                 model.save_pretrained(save_dir)
-                engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
+                # engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
                 CURRENT_STEP = total_num_steps
 
         CURRENT_STEP += 1
+        REAL_STEP += 1
