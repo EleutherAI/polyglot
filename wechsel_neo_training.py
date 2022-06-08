@@ -39,6 +39,7 @@ config = json.load(open(parser.parse_args().config))
 model_config = GPTNeoConfig.from_pretrained(config['model_name'])
 model_config.vocab_size = 30003
 tokenizer = GPT2TokenizerFast.from_pretrained(config['tokenizer_name'])
+model_config.eos_token_id=tokenizer.eos_token_id
 model = GPTNeoForCausalLM(model_config)
 model.load_state_dict(torch.load("start/model.pt"))
 model.gradient_checkpointing_enable()
