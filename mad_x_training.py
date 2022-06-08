@@ -23,8 +23,8 @@ from wandb import Table
 
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
-from multilingual.models.mad_x.modeling_mad_x import GPTNeoForCausalLM
-from multilingual.utils import optimized_params, get_lr
+from multilingual.models.mad_x.modeling_mad_x import GPTNeoForCausalLM, GPTNeoMLP
+from multilingual.utils import optimized_params, get_lr, fuse_gelu
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +48,7 @@ model_config.vocab_size = 30003
 
 model = GPTNeoForCausalLM.from_pretrained(config["model_name"])
 model.gradient_checkpointing_enable()
+model = fuse_gelu(model, mlp_class=GPTNeoMLP)
 
 tokenizer = GPT2TokenizerFast.from_pretrained(config["tokenizer_name"])
 model_config.eos_token_id = tokenizer.eos_token_id
@@ -120,7 +121,7 @@ for name, param in model.named_parameters():
             print(f"🚀 Trainable layer '{name}'")
         trainable_params += param.numel()
 
-    if "wte" in name and "wpe" in name:
+    if "wte" in name or "wpe" in name:
         emb_params += param.numel()
 
 if dist.get_rank() == 0:

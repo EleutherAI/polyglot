@@ -1,0 +1,4 @@
+numpy
+torch
+adapter-transformers
+deepspeed

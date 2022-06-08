@@ -369,6 +369,7 @@ class GPTNeoMLP(nn.Module):
 class GPTNeoBlock(GPTNeoDecoderBlockAdaptersMixin, nn.Module):
     def __init__(self, config, layer_id):
         super().__init__()
+        self.config = config
         hidden_size = config.hidden_size
         inner_dim = (
             config.intermediate_size
@@ -1047,9 +1048,6 @@ class GPTNeoForSequenceClassification(
             hidden_states=transformer_outputs.hidden_states,
             attentions=transformer_outputs.attentions,
         )
-
-
-logger = logging.getLogger(__name__)
 
 
 @add_start_docstrings(

@@ -20,7 +20,7 @@ from tqdm import tqdm
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
 from multilingual.models.xpt_neo.modeling_xpt_neo import XPTNeoForCausalLM
-from multilingual.utils import optimized_params, set_seed, get_lr
+from multilingual.utils import optimized_params, set_seed, get_lr, fuse_gelu
 
 
 class CheckPhase:
@@ -95,6 +95,7 @@ assert config["experiment"]["type"] == "xpt-neo", "Wrong experiment type."
 tokenizer = AutoTokenizer.from_pretrained(config["tokenizer_name"])
 model = XPTNeoForCausalLM.from_pretrained(config["model_name"])
 model.gradient_checkpointing_enable()
+model = fuse_gelu(model)
 
 # Initialize XPT training
 model.initialize_xpt(

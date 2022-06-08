@@ -15,7 +15,7 @@ from wandb import Table
 
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
-from multilingual.utils import optimized_params, set_seed, get_lr
+from multilingual.utils import optimized_params, set_seed, get_lr, fuse_gelu
 
 # Initialize program
 SEED = 42
@@ -42,6 +42,8 @@ model_config.eos_token_id=tokenizer.eos_token_id
 model = GPTNeoForCausalLM(model_config)
 model.load_state_dict(torch.load("start/model.pt"))
 model.gradient_checkpointing_enable()
+model = fuse_gelu(model)
+
 total_num_steps = 2000000
 
 ###################################################################
