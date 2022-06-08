@@ -50,7 +50,7 @@ model = GPTNeoForCausalLM.from_pretrained(config["model_name"])
 model.gradient_checkpointing_enable()
 model = fuse_gelu(model, mlp_class=GPTNeoMLP)
 
-tokenizer = GPT2TokenizerFast.from_pretrained(config["tokenizer_name"])
+tokenizer = AutoTokenizer.from_pretrained(config["tokenizer_name"])
 model_config.eos_token_id = tokenizer.eos_token_id
 task_name = f"{args['task_name']}_{args['language']}"
 

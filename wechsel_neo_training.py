@@ -10,7 +10,7 @@ import torch.distributed as dist
 import wandb
 from torch.utils.data import DataLoader, DistributedSampler
 from tqdm import tqdm
-from transformers import GPTNeoForCausalLM, GPT2TokenizerFast, GPTNeoConfig
+from transformers import GPTNeoForCausalLM, GPT2TokenizerFast, GPTNeoConfig, AutoTokenizer
 from wandb import Table
 
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
@@ -36,7 +36,7 @@ config = json.load(open(parser.parse_args().config))
 model_config = GPTNeoConfig.from_pretrained(config['model_name'])
 model_config.vocab_size = 30003
 
-tokenizer = GPT2TokenizerFast.from_pretrained(config['tokenizer_name'])
+tokenizer = AutoTokenizer.from_pretrained(config['tokenizer_name'])
 model_config.eos_token_id=tokenizer.eos_token_id
 
 model = GPTNeoForCausalLM(model_config)
