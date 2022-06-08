@@ -6,6 +6,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from torch.utils import cpp_extension
+from transformers.models.gpt_neo.modeling_gpt_neo import GPTNeoMLP
 
 DEFAULT_TORCH_EXTENSION_PATH = os.path.join(
     os.path.expanduser("~"),
@@ -178,3 +179,15 @@ def set_seed(seed):
 def get_lr(optimizer):
     for param_group in optimizer.param_groups:
         return param_group["lr"]
+
+
+def fuse_gelu(model, mlp_class=GPTNeoMLP, act_name="act"):
+    for module in model.modules():
+        if isinstance(module, mlp_class):
+            setattr(
+                module,
+                act_name,
+                torch.jit.script(getattr(module, act_name)),
+            )
+
+    return model
