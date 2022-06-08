@@ -41,18 +41,23 @@
         },
         "checkpoint_params": {
             "save_dir": "./checkpoints",
-            "save_interval": 50
+            "save_interval": 5000
         },
-        "eval_interval": 50,
-        "max_eval_steps": 5
+        "eval_interval": 1000,
+        "max_eval_steps": 200
     },
     "training": {
-        "train_batch_size": 128,
+        "train_micro_batch_size_per_gpu": 24,
+        "gradient_accumulation_steps": 128,
         "optimizer": {
             "type": "Adam",
             "params": {
                 "lr": 5e-5,
-                "weight_decay": 5e-7
+                "weight_decay": 5e-7,
+                "betas": [
+                    0.9,
+                    0.95
+                ]
             }
         },
         "scheduler": {

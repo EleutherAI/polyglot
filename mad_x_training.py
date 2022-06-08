@@ -341,6 +341,4 @@ while True:
                     ):
                         model.save_pretrained(save_dir)
 
-                engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
-
         CURRENT_STEP += 1
