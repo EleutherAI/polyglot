@@ -1,28 +1,20 @@
 {
-    "model_name": "EleutherAI/gpt-neo-1.3B",
-    "tokenizer_name": "skt/kogpt2-base-v2",
+    "model_name": "EleutherAI/gpt-neo-125M",
+    "tokenizer_name": "./tokenizer/MBBPE",
     "datasets": {
         "names": [
-        {
-            "name": "datasets/nikl1",
-            "weight": 0.2
-        },
-        {
-            "name": "datasets/nikl2",
-            "weight": 0.4
-        },
-        {
-            "name": "datasets/nikl3",
-            "weight": 0.4
-        }
+            {
+                "name": "datasets",
+                "weight": 1.0
+            }
         ],
         "params": {
             "train": {
                 "start_weight": 0.0,
-                "end_weight": 0.997
+                "end_weight": 1.0
             },
             "valid": {
-                "start_weight": 0.997,
+                "start_weight": 0.0,
                 "end_weight": 1.0
             },
             "binarization_impl": "mmap",
@@ -31,34 +23,47 @@
         }
     },
     "experiment": {
-        "type": "xpt-neo",
-        "name": "1.3B-training",
+        "type": "mad-x",
+        "name": "125M-training",
         "args": {
-            "num_itl_layers": 1,
-            "pos_emb_requires_grad": true,
-            "phase1_steps": 10000,
-            "phase2_steps": 10000
+            "task_name": "mad_x",
+            "adapter_config": "pfeiffer+inv",
+            "adapter_non_linearity": "relu",
+            "adapter_reduction_factor": 16,
+            "load_adapter": null,
+            "load_lang_adapter": null,
+            "lang_adapter_config": null,
+            "lang_adapter_non_linearity": null,
+            "language": "ko",
+            "embedding_strategies": "overlap-replace",
+            "lang_adapt_strategies": "emb-and-adpt"
+
         },
         "checkpoint_params": {
             "save_dir": "./checkpoints",
             "save_interval": 5000
         },
         "eval_interval": 1000,
-        "max_eval_steps": 5
+        "max_eval_steps": 200
     },
     "training": {
-        "train_batch_size": 8,
+        "train_micro_batch_size_per_gpu": 24,
+        "gradient_accumulation_steps": 128,
         "optimizer": {
             "type": "Adam",
             "params": {
                 "lr": 5e-5,
-                "weight_decay": 5e-7
+                "weight_decay": 5e-7,
+                "betas": [
+                    0.9,
+                    0.95
+                ]
             }
         },
         "scheduler": {
             "type": "WarmupDecayLR",
             "params": {
-                "total_num_steps": null
+                "total_num_steps": 2000000
             },
             "warmup_min_lr": 0,
             "warmup_num_steps": 1000

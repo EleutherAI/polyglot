@@ -3,10 +3,10 @@
     "tokenizer_name": "./tokenizer/MBBPE",
     "datasets": {
         "names": [
-        {
-            "name": "datasets",
-            "weight": 1.0
-        }
+            {
+                "name": "datasets",
+                "weight": 1.0
+            }
         ],
         "params": {
             "train": {
@@ -45,7 +45,11 @@
             "type": "Adam",
             "params": {
                 "lr": 5e-5,
-                "weight_decay": 5e-7
+                "weight_decay": 5e-7,
+                "betas": [
+                    0.9,
+                    0.95
+                ]
             }
         },
         "scheduler": {
@@ -54,7 +58,7 @@
                 "total_num_steps": null
             },
             "warmup_min_lr": 0,
-            "warmup_num_steps": 10
+            "warmup_num_steps": 1000
         },
         "fp16": {
             "enable": true

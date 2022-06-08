@@ -1,4 +1,5 @@
 import json
+import logging
 import math
 import os
 from argparse import ArgumentParser
@@ -10,12 +11,22 @@ import torch.distributed as dist
 import wandb
 from torch.utils.data import DataLoader, DistributedSampler
 from tqdm import tqdm
-from transformers import GPTNeoForCausalLM, GPT2TokenizerFast, GPTNeoConfig
+from transformers import (
+    AutoTokenizer,
+    set_seed,
+    GPT2TokenizerFast,
+    GPTNeoConfig,
+)
+from transformers.adapters import AdapterCompositionBlock, Fuse
+from transformers.adapters.configuration import AdapterConfig
 from wandb import Table
 
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
-from multilingual.utils import optimized_params, set_seed, get_lr
+from multilingual.models.mad_x.modeling_mad_x import GPTNeoForCausalLM
+from multilingual.utils import optimized_params, get_lr
+
+logger = logging.getLogger(__name__)
 
 # Initialize program
 SEED = 42
@@ -30,30 +41,113 @@ parser = ArgumentParser()
 parser.add_argument("--config", "-c", type=str, required=True)
 parser.add_argument("--local_rank", type=int)
 config = json.load(open(parser.parse_args().config))
+args = config["experiment"]["args"]
 
-# TODO : modify this block for your model #########################
-
-model_config = GPTNeoConfig.from_pretrained(config['model_name'])
+model_config = GPTNeoConfig.from_pretrained(config["model_name"])
 model_config.vocab_size = 30003
 
-tokenizer = GPT2TokenizerFast.from_pretrained(config['tokenizer_name'])
-model_config.eos_token_id=tokenizer.eos_token_id
-
-model = GPTNeoForCausalLM(model_config)
-model.load_state_dict(torch.load("start/model.pt"))
+model = GPTNeoForCausalLM.from_pretrained(config["model_name"])
 model.gradient_checkpointing_enable()
-total_num_steps = 2000000
 
-###################################################################
+tokenizer = GPT2TokenizerFast.from_pretrained(config["tokenizer_name"])
+model_config.eos_token_id = tokenizer.eos_token_id
+task_name = f"{args['task_name']}_{args['language']}"
 
-config["training"]["scheduler"]["params"]["total_num_steps"] = total_num_steps
+if task_name not in model.config.adapters:
+    adapter_config = AdapterConfig.load(
+        args["adapter_config"],
+        non_linearity=args["adapter_non_linearity"],
+        reduction_factor=args["adapter_reduction_factor"],
+    )
+
+    if args["load_adapter"]:
+        model.load_adapter(args["load_adapter"], adapter_config, load_as=task_name)
+    else:
+        model.add_adapter(task_name, config=adapter_config)
+
+    if args["load_lang_adapter"]:
+        lang_adapter_config = AdapterConfig.load(
+            args["lang_adapter_config"],
+            non_linearity=args["lang_adapter_non_linearity"],
+            reduction_factor=args["adapter_reduction_factor"],
+        )
+
+        lang_adapter_name = model.load_adapter(
+            args["load_lang_adapter"],
+            config=lang_adapter_config,
+            load_as=args["language"],
+        )
+    else:
+        lang_adapter_name = None
+
+    model.train_adapter(task_name, train_embeddings=True)
+else:
+    if args["load_adapter"] or args["load_lang_adapter"]:
+        raise ValueError
+
+if args["embedding_strategies"] == "overlap-replace":
+    orig_tokenizer = AutoTokenizer.from_pretrained(config["model_name"])
+
+    model.add_embeddings(
+        "lng_emb",
+        tokenizer,
+        reference_embedding="default",
+        reference_tokenizer=orig_tokenizer,
+    )
+    model._active_embedding = "lng_emb"
+    model.delete_embeddings("default")
+    model.tie_weights()
+elif args["embedding_strategies"] == "replace":
+    model.resize_token_embeddings(len(tokenizer))
+
+trainable_params = 0
+frozen_params = 0
+emb_params = 0
+for name, param in model.named_parameters():
+    if "word_embeddings" in name:
+        param.requires_grad = True
+        emb_params += param.numel()
+
+    elif args["lang_adapt_strategies"] == "emb":
+        param.requires_grad = False
+
+    if not param.requires_grad:
+        if dist.get_rank() == 0:
+            print(f"🥶 Frozen layer '{name}'")
+        frozen_params += param.numel()
+    else:
+        if dist.get_rank() == 0:
+            print(f"🚀 Trainable layer '{name}'")
+        trainable_params += param.numel()
+
+    if "wte" in name and "wpe" in name:
+        emb_params += param.numel()
+
+if dist.get_rank() == 0:
+    print(f"Total frozen parameters: {frozen_params}")
+    print(f"Total emb parameters (wte, wpe): {emb_params}")
+    print(f"Total trainable parameters: {trainable_params}")
+
+model_frozen = getattr(model.base_model, "model_frozen", False)
+
+if model_frozen and model.active_adapters:
+    # Check if training AdapterFusion
+    train_adapter_fusion = (
+        isinstance(model.active_adapters, Fuse)
+        or isinstance(model.active_adapters, AdapterCompositionBlock)
+        and any([isinstance(child, Fuse) for child in model.active_adapters.children])
+    )
+
+if model.active_adapters is None:
+    raise ValueError()
+
 
 # Load datasets
 train_sets, valid_sets = [], []
 for dataset in config["datasets"]["names"]:
     train_sets.append(
         DatasetForCausalLM(
-            data_name=os.path.join(dataset["name"],"train/merge"),
+            data_name=os.path.join(dataset["name"], "train/merge"),
             max_seq_length=model.config.max_position_embeddings,
             binarization_impl=config["datasets"]["params"]["binarization_impl"],
             split_type="train",
@@ -64,7 +158,7 @@ for dataset in config["datasets"]["names"]:
     )
     valid_sets.append(
         DatasetForCausalLM(
-            data_name=os.path.join(dataset["name"],"val/merge"),
+            data_name=os.path.join(dataset["name"], "val/merge"),
             max_seq_length=model.config.max_position_embeddings,
             binarization_impl=config["datasets"]["params"]["binarization_impl"],
             split_type="valid",
@@ -119,12 +213,13 @@ if dist.get_rank() == 0:
     wandb.init(
         config=config,
         name=f"{config['experiment']['type']}-{config['experiment']['name']}",
-        project="WECHSEL-Training",
+        project="MAD-X-Training",
     )
 
 
 # Start training
 wandb_generation_table = []
+total_num_steps = config["training"]["scheduler"]["params"]["total_num_steps"]
 
 while True:
     if CURRENT_STEP >= total_num_steps:
@@ -160,7 +255,10 @@ while True:
         engine.backward(loss)
         engine.step()
 
-        if CURRENT_STEP % config["experiment"]["eval_interval"] == 0 and CURRENT_STEP != 0:
+        if (
+            CURRENT_STEP % config["experiment"]["eval_interval"] == 0
+            and CURRENT_STEP != 0
+        ):
             if dist.get_rank() == 0:
                 print("START VALIDATION")
 

@@ -156,7 +156,6 @@ valid_dataset = DatasetBlender(
 
 train_loader = DataLoader(
     train_dataset,
-    # batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
     batch_size=config["training"]["train_micro_batch_size_per_gpu"],
     pin_memory=True,
     shuffle=False,
@@ -166,7 +165,6 @@ train_loader = DataLoader(
 
 valid_loader = DataLoader(
     valid_dataset,
-    # batch_size=config["training"]["train_batch_size"] // dist.get_world_size(),
     batch_size=config["training"]["train_micro_batch_size_per_gpu"],
     pin_memory=True,
     shuffle=False,
@@ -348,7 +346,6 @@ while True:
                     f"steps={REAL_STEP}",
                 )
                 model.save_pretrained(save_dir)
-                # engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
                 CURRENT_STEP = total_num_steps
 
         CURRENT_STEP += 1
