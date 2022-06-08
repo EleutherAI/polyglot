@@ -5,20 +5,17 @@ from argparse import ArgumentParser
 from random import choice
 
 import deepspeed
-import torch.cuda
+import torch
 import torch.distributed as dist
 import wandb
 from torch.utils.data import DataLoader, DistributedSampler
-from transformers import AutoTokenizer, AutoModel, GPTNeoForCausalLM, GPT2TokenizerFast, GPTNeoConfig
+from tqdm import tqdm
+from transformers import GPTNeoForCausalLM, GPT2TokenizerFast, GPTNeoConfig
 from wandb import Table
 
-from tqdm import tqdm
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
-from multilingual.models.xpt_neo.modeling_xpt_neo import XPTNeoForCausalLM
 from multilingual.utils import optimized_params, set_seed, get_lr
-
-import torch
 
 # Initialize program
 SEED = 42
@@ -38,12 +35,13 @@ config = json.load(open(parser.parse_args().config))
 
 model_config = GPTNeoConfig.from_pretrained(config['model_name'])
 model_config.vocab_size = 30003
+
 tokenizer = GPT2TokenizerFast.from_pretrained(config['tokenizer_name'])
+model_config.eos_token_id=tokenizer.eos_token_id
 
 model = GPTNeoForCausalLM(model_config)
 model.load_state_dict(torch.load("start/model.pt"))
 model.gradient_checkpointing_enable()
-
 total_num_steps = 2000000
 
 ###################################################################
@@ -89,7 +87,7 @@ valid_dataset = DatasetBlender(
 
 train_loader = DataLoader(
     train_dataset,
-    batch_size=config["training"]["train_batch_size"]//dist.get_world_size(),
+    batch_size=config["training"]["train_micro_batch_size_per_gpu"],
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
@@ -98,7 +96,7 @@ train_loader = DataLoader(
 
 valid_loader = DataLoader(
     valid_dataset,
-    batch_size=config["training"]["train_batch_size"]//dist.get_world_size(),
+    batch_size=config["training"]["train_micro_batch_size_per_gpu"],
     pin_memory=True,
     shuffle=False,
     num_workers=os.cpu_count() // dist.get_world_size(),
@@ -245,6 +243,6 @@ while True:
                     ):
                         model.save_pretrained(save_dir)
 
-                engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
+            engine.save_checkpoint(os.path.join(save_dir, "deepspeed"))
 
         CURRENT_STEP += 1

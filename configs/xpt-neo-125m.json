@@ -26,20 +26,21 @@
         "type": "xpt-neo",
         "name": "125M-training",
         "args": {
-            "num_itl_layers": 1,
+            "num_itl_layers": 2,
             "pos_emb_requires_grad": true,
-            "phase1_steps": 100,
-            "phase2_steps": 100
+            "phase1_steps": 100000,
+            "phase2_steps": 100000
         },
         "checkpoint_params": {
             "save_dir": "./checkpoints",
-            "save_interval": 50
+            "save_interval": 5000
         },
-        "eval_interval": 50,
-        "max_eval_steps": 5
+        "eval_interval": 1000,
+        "max_eval_steps": 200
     },
     "training": {
-        "train_batch_size": 128,
+        "train_micro_batch_size_per_gpu": 24,
+        "gradient_accumulation_steps": 128,
         "optimizer": {
             "type": "Adam",
             "params": {
