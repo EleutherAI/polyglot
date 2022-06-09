@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from torch.utils import cpp_extension
 from transformers.models.gpt_neo.modeling_gpt_neo import GPTNeoMLP
+import transformers
 
 DEFAULT_TORCH_EXTENSION_PATH = os.path.join(
     os.path.expanduser("~"),
@@ -174,6 +175,7 @@ def set_seed(seed):
     torch.manual_seed(seed)
     np.random.seed(seed)
     random.seed(seed)
+    transformers.set_seed(seed)
 
 
 def get_lr(optimizer):
