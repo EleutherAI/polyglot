@@ -13,7 +13,6 @@ from torch.utils.data import DataLoader, DistributedSampler
 from tqdm import tqdm
 from transformers import (
     AutoTokenizer,
-    set_seed,
     GPT2TokenizerFast,
     GPTNeoConfig,
 )
@@ -24,7 +23,7 @@ from wandb import Table
 from multilingual.data.datasets.dataset_causal_lm import DatasetForCausalLM
 from multilingual.data.utils.blenders import DatasetBlender
 from multilingual.models.mad_x.modeling_mad_x import GPTNeoForCausalLM, GPTNeoMLP
-from multilingual.utils import optimized_params, get_lr, fuse_gelu
+from multilingual.utils import optimized_params, get_lr, fuse_gelu, set_seed
 
 logger = logging.getLogger(__name__)
 
