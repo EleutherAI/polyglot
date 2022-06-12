@@ -1,0 +1,87 @@
+{
+    "model_name": "EleutherAI/gpt-neo-125M",
+    "tokenizer_name": "./tokenizer/MBBPE",
+    "datasets": {
+        "names": [
+            {
+                "name": "datasets",
+                "weight": 1.0
+            }
+        ],
+        "params": {
+            "train": {
+                "start_weight": 0.0,
+                "end_weight": 1.0
+            },
+            "valid": {
+                "start_weight": 0.0,
+                "end_weight": 1.0
+            },
+            "binarization_impl": "mmap",
+            "append_eod": true,
+            "log_interval": 10000
+        }
+    },
+    "experiment": {
+        "type": "recycle-gpt-neo",
+        "name": "125M-training",
+        "args": {
+            "task_name": "recycle-gpt-neo",
+            "adapter_config": "pfeiffer+inv",
+            "adapter_non_linearity": "relu",
+            "adapter_reduction_factor": 16,
+            "load_adapter": null,
+            "load_lang_adapter": null,
+            "lang_adapter_config": null,
+            "lang_adapter_non_linearity": null,
+            "language": "ko",
+            "embedding_strategies": "overlap-replace",
+            "lang_adapt_strategies": "emb-and-adpt"
+
+        },
+        "checkpoint_params": {
+            "save_dir": "./checkpoints",
+            "save_interval": 5000
+        },
+        "eval_interval": 1000,
+        "max_eval_steps": 200
+    },
+    "training": {
+        "train_micro_batch_size_per_gpu": 24,
+        "gradient_accumulation_steps": 128,
+        "optimizer": {
+            "type": "Adam",
+            "params": {
+                "lr": 5e-5,
+                "weight_decay": 5e-7,
+                "betas": [
+                    0.9,
+                    0.95
+                ]
+            }
+        },
+        "scheduler": {
+            "type": "WarmupDecayLR",
+            "params": {
+                "total_num_steps": 2000000
+            },
+            "warmup_min_lr": 0,
+            "warmup_num_steps": 1000
+        },
+        "fp16": {
+            "enable": true
+        },
+        "zero_optimization": {
+            "stage": 2,
+            "allgather_partitions": true,
+            "allgather_bucket_size": 2e8,
+            "overlap_comm": true,
+            "reduce_scatter": true,
+            "reduce_bucket_size": 2e8,
+            "contiguous_gradients": true
+        },
+        "zero_allow_untested_optimizer": true,
+        "wall_clock_breakdown": false,
+        "steps_per_print": 9999999999
+    }
+}
