@@ -111,7 +111,7 @@ total_num_steps = (
     config["experiment"]["args"]["phase1_steps"]
     + config["experiment"]["args"]["phase2_steps"]
 )
-config["training"]["scheduler"]["params"]["total_num_steps"] = total_num_steps
+assert config["training"]["scheduler"]["params"]["total_num_steps"] == total_num_steps, "'total_num_steps' must be 'phase1_steps' + 'phase2_steps'"
 if config["experiment"]["args"]["phase1_steps"] > 0:
     phase_detector = CheckPhase("phase1")
 else:
