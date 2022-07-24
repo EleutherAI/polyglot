@@ -5,7 +5,7 @@
   "added_tokens": [
     {
       "id": 0,
-      "content": "<pad>",
+      "content": "<|pad|>",
       "single_word": false,
       "lstrip": false,
       "rstrip": false,
@@ -14,7 +14,7 @@
     },
     {
       "id": 1,
-      "content": "<eos>",
+      "content": "<|endoftext|>",
       "single_word": false,
       "lstrip": false,
       "rstrip": false,
@@ -23,7 +23,7 @@
     },
     {
       "id": 2,
-      "content": "<|endoftext|>",
+      "content": "<|unk|>",
       "single_word": false,
       "lstrip": false,
       "rstrip": false,
@@ -107,9 +107,9 @@
     "end_of_word_suffix": null,
     "fuse_unk": false,
     "vocab": {
-      "<pad>": 0,
-      "<eos>": 1,
-      "<|endoftext|>": 2,
+      "<|pad|>": 0,
+      "<|endoftext|>": 1,
+      "<|unk|>": 2,
       "<|sep|>": 3,
       "!": 4,
       "\"": 5,

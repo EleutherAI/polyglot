@@ -1,1 +1,1 @@
-{"eos_token": "<eos>", "pad_token": "<pad>", "additional_special_tokens": ["<|endoftext|>", "<|sep|>", "<|acc|>", "<|tel|>", "<|rrn|>"]}
+{"eos_token": "<|endoftext|>", "pad_token": "<|pad|>","unk_token":"<|unk|>", "sep_token":"<|sep|>", "additional_special_tokens": ["<|acc|>", "<|tel|>", "<|rrn|>"]}
