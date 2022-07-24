@@ -1,1 +1,1 @@
-{"pad_token": "<pad>", "eos_token": "<eos>", "tokenizer_class": "PreTrainedTokenizerFast"}
+{"eos_token": "<|endoftext|>", "pad_token": "<|pad|>", "sep_token":"<|sep|>","unk_token":"<|unk|>", "tokenizer_class": "PreTrainedTokenizerFast"}
