@@ -6,7 +6,7 @@ There are many languages other than English in the world, so we wanted to make s
 Our ultimate goal is making language models that can learn languages other than English well. To this end, we plan to perform various experiments such as multilingual language transferring, non-English monolingual language model training and multilingual language model training.
 If you have any questions or would like to participate in our research, [join our Discord](https://discord.com/invite/zBGx3azzUn).
 
-## 1. Korean models
+## 1. GPT-NeoX-Ko
 When we first started our research, most of our members were Korean, so we first targeted the Korean language. 
 We collected about 1 TB of Korean dataset for this work, which was done with [TUNiB](https://tunib.ai/). 
 In addition, we used the [GPT-NeoX](https://github.com/EleutherAI/gpt-neox) codebase for model training and added 8 Korean tasks to [LM-Evaluation-Harness](https://github.com/EleutherAI/lm-evaluation-harness/tree/multilingual-ko) for model evaluation.
