@@ -3,7 +3,7 @@ This repository records various multilingual related studies conducted by Eleuth
 Starting with GPT-3, researches about large-scale language model has been advanced so far, but most of it has been done in English.
 There are many languages other than English in the world, so we wanted to make sure that non-English-speaking countries can also benefit from these researches.
 
-Our ultimate goal is making language models that can learn languages other than English well. To this end, we plan to perform various experiments such as multilingual language transferring, non-English monolingual language model training and multilingual language model training.
+Our ultimate goal is making open source language models that can learn languages other than English well. To this end, we plan to perform various experiments such as multilingual language transferring, non-English monolingual language model training and multilingual language model training.
 If you have any questions or would like to participate in our research, [join our Discord](https://discord.com/invite/zBGx3azzUn).
 
 ## 1. GPT-NeoX-Ko
