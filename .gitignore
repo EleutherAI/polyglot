@@ -378,13 +378,3 @@ dmypy.json
 ._.DS_Store
 **/.DS_Store
 **/._.DS_Store
-
-.csv
-._.csv
-*.csv
-**/.csv
-**/*.csv
-
-usecases
-/usecases
-*/usecases
