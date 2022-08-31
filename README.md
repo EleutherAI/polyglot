@@ -11,9 +11,9 @@ When we first started our research, most of our members were Korean, so we first
 We collected about 1 TB of Korean dataset for this work, which was done with [TUNiB](https://tunib.ai/). 
 In addition, we used the [GPT-NeoX](https://github.com/EleutherAI/gpt-neox) codebase for model training and added 8 Korean tasks to [LM-Evaluation-Harness](https://github.com/EleutherAI/lm-evaluation-harness/tree/multilingual-ko) for model evaluation.
 
-| Size | Status |   Evaluation   |  Checkpoints   |
-|:----:|:------:|:--------------:|:--------------:|
-| 1.3B | Ready  | Coming soon... | Coming soon... |
+| Size | Status | Evaluation  | Checkpoints  |
+|:----:|:------:|:-----------:|:------------:|
+| 1.3B | Ready  | Coming soon | Coming soon  |
 
 ## Citation
 If you have found our words helpful in your work, you can cite this repository as
