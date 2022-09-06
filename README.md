@@ -14,6 +14,10 @@ We first targeted the Korean language because most of our contributors were Kore
 ### 1.3. Limitations and Biases
 GPT-NeoX-Ko was trained as an autoregressive language model. This means that its core functionality is taking a string of text and predicting the next token. While language models are widely used for tasks other than this, there are a lot of unknowns with this work. Depending on your usecase GPT-NeoX-Ko may produce socially unacceptable text. As with all language models, it is hard to predict in advance how GPT-NeoX-Ko will respond to particular prompts and offensive content may occur without warning. We recommend having a human curate or filter the outputs before releasing them, both to censor undesirable content and to improve the quality of the results.
 
+### 1.4 Licensing
+GPT-NeoX-Ko project is licensed under the terms of the Apache License 2.0.
+
+Copyright © 2022, EleutherAI. All Rights Reserved.
 
 ## Citation
 If you have found our words helpful in your work, you can cite this repository as
