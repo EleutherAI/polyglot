@@ -1,7 +1,7 @@
 # multilingual
 This repository contains various research output on multilingual language models which have been conducted by EleutherAI. Current large language model research such as GPT-3 have been mainly done in English therefore non-English speaking countries can not get a benefit from these researches directly. We would like to apply this knowledge to non English language models for users with languages other than English. Our ultimate goal is making language models learn other languages more than English as well. We are planning to perform various language-related experiments such as multilingual language transferring, non-English monolingual training and multilingual training, and we will be updating them here. If you have any questions or would like to participate in our research, please [join our Discord](https://discord.com/invite/zBGx3azzUn).
 
-## 1. GPT-NeoX-Ko
+## 1. GPT-NeoX-Ko [WIP]
 ### 1.1. Introduction
 We first targeted the Korean language because most of our contributors were Korean when we first started our research. We collected about 1.2TB of Korean dataset for this work, which was done with [TUNiB](https://tunib.ai/). In addition, we used the [GPT-NeoX](https://github.com/EleutherAI/gpt-neox) framework for model training and added 8 Korean tasks to [LM-Evaluation-Harness](https://github.com/EleutherAI/lm-evaluation-harness/tree/multilingual-ko) for model evaluation.
 
