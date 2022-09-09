@@ -3,7 +3,7 @@ This repository contains various research outputs on multilingual language model
 
 ## 1. GPT-NeoX-Ko [WIP]
 ### 1.1. Introduction
-We firstly targeted this project in the Korean language because most of our contributors were Korean when we started our research. We collected about 1.2TB Korean dataset for this work, which was done with TUNiB. In addition, we used the GPT-NeoX framework for model training and added 8 Korean tasks to LM-Evaluation-Harness for model evaluation.
+We firstly targeted Korean language because most of our contributors were Korean when we started our research. We collected about 1.2TB Korean dataset for this work, which was done with TUNiB. In addition, we used the GPT-NeoX framework for model training and added 8 Korean tasks to LM-Evaluation-Harness for model evaluation.
 
 ### 1.2. Models
 | Size |                                           Status                                           | Evaluation  | Checkpoints |
