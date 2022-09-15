@@ -14,20 +14,6 @@ GPT-NeoX-Ko is a Korean autoregressive language model made by EleutherAI multili
 ### Training data
 GPT-NeoX-Ko was trained on 1.2TB Korean Dataset, a large-scale curated dataset created by [TUNiB](https://tunib.ai/).
 
-### Training procedure
-GPT-NeoX-Ko was trained for 213 billion tokens over 102,000 steps on 256 * A100 GPUs. It was trained as an autoregressive language model, using cross-entropy loss to maximize the likelihood of predicting the next token correctly.
-
-### How to use
-
-This model can be easily loaded using the `AutoModelForCausalLM` functionality:
-
-```python
-from transformers import AutoTokenizer, AutoModelForCausalLM
-
-tokenizer = AutoTokenizer.from_pretrained("[EleutherAI/gpt-neox-ko-1.3b](https://huggingface.co/EleutherAI/gpt-neox-ko-1.3b)")
-model = AutoModelForCausalLM.from_pretrained("[EleutherAI/gpt-neox-ko-1.3b](https://huggingface.co/EleutherAI/gpt-neox-ko-1.3b)")
-```
-
 ### Privacy considerations and Limitations
 
 GPT-NeoX-Ko learns an inner representation of the Korean that can be used to extract features useful for downstream tasks. The model is best at what it was pretrained for however, which is generating text from a prompt.
