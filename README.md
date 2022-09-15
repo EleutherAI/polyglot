@@ -5,7 +5,7 @@ Our ultimate goal is to make large-scale language models for low-resource langua
 
 ## 1. GPT-NeoX-Ko [WIP]
 ### Model Description
-GPT-NeoX-Ko is a Korean autoregressive language model made by EleutherAI multilingual team. We collected about 1.2TB Korean dataset for this work, which was done with [TUNiB](https://tunib.ai/). In addition, we used the GPT-NeoX framework for model training and added some Korean tasks to LM-Evaluation-Harness for model evaluation.
+GPT-NeoX-Ko is a Korean autoregressive language model made by EleutherAI multilingual team. We collected about 1.2TB Korean dataset for this work, which was done with [TUNiB](https://tunib.ai/). In addition, we used the [GPT-NeoX framework](https://github.com/EleutherAI/gpt-neox) for model training and added some Korean tasks to [LM-Evaluation-Harness](https://github.com/EleutherAI/lm-evaluation-harness) for model evaluation.
 
 ### Model Checkpoints
 | Size |                                      Training Status                                       | Evaluation  |                                                      Checkpoints                                                      |
