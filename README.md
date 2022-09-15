@@ -8,7 +8,7 @@ GPT-NeoX-Ko is a Korean autoregressive language model made by EleutherAI multili
 ### Model Checkpoints
 | Size |                                      Training Status                                       | Evaluation  |                                                      Checkpoints                                                      |
 |:----:|:------------------------------------------------------------------------------------------:|:-----------:|:---------------------------------------------------------------------------------------------------------------------:|
-| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon | [Available](https://huggingface.co/[EleutherAI/gpt-neox-ko-1.3b](https://huggingface.co/EleutherAI/gpt-neox-ko-1.3b)) |
+| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon | [Available](https://huggingface.co/EleutherAI/gpt-neox-ko-1.3b) |
 | 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon |                                                      Coming soon                                                      |
 
 ### Training data
