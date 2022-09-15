@@ -11,10 +11,19 @@ We firstly targeted Korean language because most of our contributors were Korean
 | 1.3B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon | Coming soon |
 | 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon | Coming soon |
 
-### 1.3. Limitations and Biases
+### 1.3. Privacy considerations
+General training algorithms for PLM have many hazards that memorize personal information in training data. 
+For mitigate this, we added these three follow tokens: 
+* `<|acc|>` : bank account number. 
+* `<rnn>` : SSN(Social Security Number). 
+* `<|tell|>` : phone number.
+
+We replaced much personal information by using these tokens in data preprocessing steps.
+
+### 1.4. Limitations and Biases
 GPT-NeoX-Ko was trained as an autoregressive language model. This means that its core functionality is taking a string of text and predicting the next token. While language models are widely used for tasks other than this, there are a lot of unknowns with this work. Depending on your use case, GPT-NeoX-Ko may produce socially unacceptable text. As with all language models, it is hard to predict in advance how GPT-NeoX-Ko will respond to particular prompts, and offensive content may occur without warning. We recommend having a human curate or filter the outputs before releasing them, both to censor undesirable content and to improve the quality of the results.
 
-### 1.4 Licensing
+### 1.5. Licensing
 GPT-NeoX-Ko project is licensed under the terms of the Apache License 2.0.
 
 Copyright © 2022, EleutherAI. All Rights Reserved.
