@@ -6,10 +6,10 @@ This repository contains various research outputs on multilingual language model
 GPT-NeoX-Ko is a Korean autoregressive language model made by EleutherAI multilingual team. We collected about 1.2TB Korean dataset for this work, which was done with [TUNiB](https://tunib.ai/). In addition, we used the GPT-NeoX framework for model training and added some Korean tasks to LM-Evaluation-Harness for model evaluation.
 
 ### Model Checkpoints
-| Size |                                           Status                                           | Evaluation  | Checkpoints |
-|:----:|:------------------------------------------------------------------------------------------:|:-----------:|:-----------:|
-| 1.3B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon | Coming soon |
-| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon | Coming soon |
+| Size |                                           Status                                            | Evaluation  |                                                      Checkpoints                                                      |
+|:----:|:-------------------------------------------------------------------------------------------:|:-----------:|:---------------------------------------------------------------------------------------------------------------------:|
+| 1.3B | [Published](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon | [Available](https://huggingface.co/[EleutherAI/gpt-neox-ko-1.3b](https://huggingface.co/EleutherAI/gpt-neox-ko-1.3b)) |
+| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo)  | Coming soon |                                                      Coming soon                                                      |
 
 ### Training data
 GPT-NeoX-Ko was trained on 1.2TB Korean Dataset, a large-scale curated dataset created by [TUNiB](https://tunib.ai/).
@@ -24,8 +24,8 @@ This model can be easily loaded using the `AutoModelForCausalLM` functionality:
 ```python
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neox-ko-1.3b")
-model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neox-ko-1.3b")
+tokenizer = AutoTokenizer.from_pretrained("[EleutherAI/gpt-neox-ko-1.3b](https://huggingface.co/EleutherAI/gpt-neox-ko-1.3b)")
+model = AutoModelForCausalLM.from_pretrained("[EleutherAI/gpt-neox-ko-1.3b](https://huggingface.co/EleutherAI/gpt-neox-ko-1.3b)")
 ```
 
 ### Privacy considerations and Limitations
