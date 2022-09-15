@@ -12,8 +12,7 @@ We firstly targeted Korean language because most of our contributors were Korean
 | 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon | Coming soon |
 
 ### 1.3. Privacy considerations
-General training algorithms for pretrained language model have many hazards that memorize personal information in training data. 
-We added these three follow tokens to mitigate this problem and replaced much personal information by using these tokens in data preprocessing steps.
+General training algorithms for pretrained language model have many hazards that memorize personal information in training data. We added the following tokens to vocabulary to mitigate privacy problem and replaced much personal information to these tokens in data preprocessing steps.
 
 * `<|acc|>` : bank account number
 * `<|rrn|>` : resident registration number
