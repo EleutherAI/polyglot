@@ -12,8 +12,9 @@ We firstly targeted Korean language because most of our contributors were Korean
 | 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon | Coming soon |
 
 ### 1.3. Privacy considerations
-General training algorithms for PLM have many hazards that memorize personal information in training data. 
-For mitigate this, we added these three follow tokens: 
+General training algorithms for pretrained language model have many hazards that memorize personal information in training data. 
+We added these three follow tokens to mitigate this problem
+
 * `<|acc|>` : bank account number. 
 * `<rnn>` : SSN(Social Security Number). 
 * `<|tell|>` : phone number.
