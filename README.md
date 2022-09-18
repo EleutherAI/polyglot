@@ -1,53 +1,112 @@
-# multilingual
-This repository contains various research outputs on multilingual language models which have been conducted by EleutherAI. Current large-scale language model researches such as GPT-3 have been mainly done in English, and therefore it is hard to benefit from these researches directly in non-English speaking countries. We would like to apply this knowledge to non-English language models for users with languages other than English. 
+# Polyglot: Large Language Models of Well-balanced Competence in Multi-languages
 
-Our ultimate goal is to make large-scale language models for low-resource languages, rather than just focusing on high-resource languages. We are planning to perform various language-related experiments such as multilingual language transferring, non-English monolingual training, and multilingual training for this, and we will be updating them here. If you have any questions or would like to participate in our research, please [join our Discord](https://discord.com/invite/zBGx3azzUn).
+## 1. Project Description
+### Why another multilingual model?
+Various multilingual models such as mBERT, BLOOM, and XGLM have been released so far.
+Therefore, someone might ask "why do we need to make multilingual models again?"
+Before answering the question, we would like to ask "Why do people around the world make monolingual models in their language even though there are already many multilingual models?"
+There may be various reasons, but we would like to point to dissatisfaction with the non-English language performance of the current multilingual models as the biggest reason.
+We want to make multilingual models with higher non-English language performance, and this is the reason we need to make multilingual models again.
 
-## 1. GPT-NeoX-Ko [WIP]
-### Model Description
-GPT-NeoX-Ko is a Korean autoregressive language model made by EleutherAI multilingual team. We collected about 1.2TB Korean dataset for this work, which was done with [TUNiB](https://tunib.ai/). In addition, we used the [GPT-NeoX framework](https://github.com/EleutherAI/gpt-neox) for model training and added some Korean tasks to [LM-Evaluation-Harness](https://github.com/EleutherAI/lm-evaluation-harness) for model evaluation.
+### What do we focus on to make better multilingual models?
+We will focus on the following two factors to make multilingual models with better non-English performance.
 
-### Model Checkpoints
-| Size |                                      Training Status                                       | Evaluation  |                                                      Checkpoints                                                      |
-|:----:|:------------------------------------------------------------------------------------------:|:-----------:|:---------------------------------------------------------------------------------------------------------------------:|
-| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon | Coming soon |
-| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon |                                                      Coming soon                                                      |
+#### Amount of data in each language and its balance
 
-### Training data
-GPT-NeoX-Ko was trained on 1.2TB Korean Dataset, a large-scale curated dataset created by [TUNiB](https://tunib.ai/).
+Most multilingual models are trained using data from a fairly uneven distribution of languages.
+For example, BLOOM's training data is still English-centric.
+English accounts for 30% of their data, but only 1-3% of languages such as Vietnamese and Indonesian are included.
+XGLM has taken a step forward in that it tried to mitigate this problem by data up-sampling, but we believe the researchers who created XGLM are also know the limitations of data up-sampling.
+We will collect large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
 
-### Privacy considerations and Limitations
+#### Language selection
 
-GPT-NeoX-Ko learns an inner representation of the Korean that can be used to extract features useful for downstream tasks. The model is best at what it was pretrained for however, which is generating text from a prompt.
+Most multilingual models learned dozens of languages including low-resource languages with few users.
+For example, XGLM learned 30 languages, and there are low resources languages among them. BLOOM also learned 42 languages including many low-resource languages.
+But we plan to let go of the desire to be good at too many languages at once.
+The number of steps that a model can learn is set to some extent, and the model converges when it exceeds that. 
+So if one model takes too many languages, the training efficiency for each language should decrease.
+Therefore, we will train the model for only languages that are contained in similar language families that can make synergy between them.
+In addition, we exclude languages that are used by few users because it is difficult to collect a large amount of data - we don't want to make unrealistic promises. 
+In other words, we will only target high or middle resource languages for our project.
 
-#### Privacy considerations
+## 2. Project Roadmap
+
+### Polyglot-Ko [WIP]
+When we first started our research, we already had 1.2TB of Korean data collected by TUNiB. Before we collect a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had.
+This Korean model can be used for performance comparison with the multilingual model, and this model itself would help many Korean companies and researchers.
+
+| Size |                                      Training Status                                       | Model Card  | Model Checkpoints |
+|:----:|:------------------------------------------------------------------------------------------:|:-----------:|:-----------------:|
+| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon |    Coming soon    |
+| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon |    Coming soon    |
+| ...  |                                           Ready                                            | Coming soon |    Coming soon    |
+
+### Polyglot-East-Asian [WIP]
+We chose East Asian language as our first multilingual dataset. 
+This model includes Korean, Chinese, Japanese, Indonesian, Malay, Vietnamese, Thai and English. 
+We will train the model by collecting at least hundreds of billions tokens of data from each language and balancing them. 
+Some people may wonder why English is included on this list, but because English is now a global language, it can synergize with any other language in the world.
+
+| Size | Training Status | Model Card  | Model Checkpoints |
+|:----:|:---------------:|:-----------:|:-----------------:|
+| ...  |      Ready      | Coming soon |    Coming soon    |
+
+
+## 3. Data Risks
+
+Polyglot models learn an inner representation of the various languages that can be used to extract features useful for downstream tasks. 
+The model is best at what it was pretrained for however, which is generating text from a prompt.
+
+### Privacy considerations
 General training algorithms for pretrained language model have many hazards that memorize personal information in training data. We added the following tokens to vocabulary to mitigate privacy problem and replaced much personal information to these tokens in data preprocessing steps.
 
 * `<|acc|>` : bank account number
 * `<|rrn|>` : resident registration number
 * `<|tell|>` : phone number
 
-#### Limitations and Biases
+### Limitations and Biases
+The core functionality of Polyglot is taking a string of text and predicting the next token. While language models are widely used for tasks other than this, there are a lot of unknowns with this work. When prompting Polyglot it is important to remember that the statistically most likely next token is often not the token that produces the most "accurate" text. Never depend upon Polyglot to produce factually accurate output.Depending upon use case Polyglot may produce socially unacceptable text.
 
-The core functionality of GPT-NeoX-Ko is taking a string of text and predicting the next token. While language models are widely used for tasks other than this, there are a lot of unknowns with this work. When prompting GPT-NeoX-Ko it is important to remember that the statistically most likely next token is often not the token that produces the most "accurate" text. Never depend upon GPT-NeoX-Ko to produce factually accurate output.Depending upon use case GPT-NeoX-Ko may produce socially unacceptable text.
+As with all language models, it is hard to predict in advance how Polyglot will respond to particular prompts and offensive content may occur without warning. We recommend having a human curate or filter the outputs before releasing them, both to censor undesirable content and to improve the quality of the results.
 
-As with all language models, it is hard to predict in advance how GPT-NeoX-Ko will respond to particular prompts and offensive content may occur without warning. We recommend having a human curate or filter the outputs before releasing them, both to censor undesirable content and to improve the quality of the results.
+### Legal Restrictions
+Since there are laws in many countries related to data collection, we will collect data with due regard to the laws of those countries. 
+Additionally, we plan to use dataset to train our models, but we do not plan to make the dataset publicly available.
 
-### Citation
-
+## 4. Citation and Related Information
+### Citations
 If you find our work useful, please consider citing:
-
 ```bibtex
-@misc{gpt-neox-ko,
-  title = {{GPT-NeoX-Ko: Open-Source Korean Autoregressive Language Model}},
-  author = {Ko, Hyunwoong and Yang, Kichang and Ryu, Minho and Kim, Taekyun and Yang, Seungmu and Hyun, Jiwoong and Park, Sungho and Ryu, Myunghyun and Keum, Bitna and Oh, Saechan and Kim, Soohwan and Park, Kyubyong},
-  url = {https://www.github.com/eleutherai/multilingual},
+@misc{polyglot-ko,
+  title = {{Plyglot-Ko: Open-Source Korean Autoregressive Language Model}},
+  author = {Ko, Hyunwoong and Yang, Kichang and Ryu, Minho and Kim, Taekyun and Yang, Seungmu and Hyun, jiwung and Park, Sungho},
+  url = {https://www.github.com/eleutherai/polyglot},
   month = {9},
   year = {2022},
 }
 ```
 
 ### Licensing
-GPT-NeoX-Ko project is licensed under the terms of the Apache License 2.0.
+All our models are  licensed under the terms of the Apache License 2.0.
 
-Copyright © 2022, EleutherAI. All Rights Reserved.
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+However, the model has the potential to generate unpredictable text as mentioned. Therefore, we are not responsible for any damages resulting from the use of the model.
+
+### Acknowledgement
+
+This project would not have been possible without compute generously provided by [Stability.ai](https://stability.ai), thanks them for providing a large amount of GPU resources. And thanks also go to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
+
