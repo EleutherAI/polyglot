@@ -12,17 +12,16 @@ We want to make multilingual models with higher non-English language performance
 We will focus on the following two factors to make multilingual models with better non-English performance.
 
 #### Amount of data in each language and its balance
-
 Most multilingual models are trained using data from a fairly uneven distribution of languages.
 For example, BLOOM's training data is still English-centric.
 English accounts for 30% of their data, but only 1-3% of languages such as Vietnamese and Indonesian are included.
 XGLM has taken a step forward in that it tried to mitigate this problem by data up-sampling, but we believe the researchers who created XGLM are also know the limitations of data up-sampling.
-We will collect large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
+To solve this problem, we will collect large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
 
 #### Language selection
 
 Most multilingual models learned dozens of languages including low-resource languages with few users.
-For example, XGLM learned 30 languages, and there are low resources languages among them. BLOOM also learned 42 languages including many low-resource languages.
+For example, XGLM learned 30 languages, BLOOM learned 42 languages including many low-resource languages.
 But we plan to let go of the desire to be good at too many languages at once.
 The number of steps that a model can learn is set to some extent, and the model converges when it exceeds that. 
 So if one model takes too many languages, the training efficiency for each language decreases.
