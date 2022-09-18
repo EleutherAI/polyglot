@@ -64,7 +64,7 @@ Additionally, we plan to use the dataset to train our models, but we do not plan
 If you find our work useful, please consider citing:
 ```bibtex
 @misc{polyglot-ko,
-  title = {{Plyglot-Ko: Open-Source Korean Autoregressive Language Model}},
+  title = {{Polyglot-Ko: Open-Source Korean Autoregressive Language Model}},
   author = {Ko, Hyunwoong and Yang, Kichang and Ryu, Minho and Kim, Taekyun and Yang, Seungmu and Hyun, jiwung and Park, Sungho},
   url = {https://www.github.com/eleutherai/polyglot},
   month = {9},
