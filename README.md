@@ -25,7 +25,7 @@ Most multilingual models learned dozens of languages including low-resource lang
 For example, XGLM learned 30 languages, and there are low resources languages among them. BLOOM also learned 42 languages including many low-resource languages.
 But we plan to let go of the desire to be good at too many languages at once.
 The number of steps that a model can learn is set to some extent, and the model converges when it exceeds that. 
-So if one model takes too many languages, the training efficiency for each language should decrease.
+So if one model takes too many languages, the training efficiency for each language decreases.
 Therefore, we will train the model for only languages that are contained in similar language families that can make synergy between them.
 In addition, we exclude languages that are used by few users because it is difficult to collect a large amount of data - we don't want to make unrealistic promises. 
 In other words, we will only target high or middle resource languages for our project.
