@@ -39,6 +39,7 @@ This Korean model can be used for performance comparison with the multilingual m
 |:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|
 | 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) |
 | 2.7B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
+| 6.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-6b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
 | ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                |
 
 ### Polyglot-East-Asian [WIP]
@@ -108,4 +109,3 @@ However, the model has the potential to generate unpredictable text as mentioned
 ### Acknowledgement
 
 This project would not have been possible without compute generously provided by [Stability.ai](https://stability.ai), thanks them for providing a large amount of GPU resources. And thanks also go to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
-
