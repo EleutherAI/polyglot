@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 ### Why another multilingual model?
-Various multilingual models such as mBERT, BLOOM, and XGLM have been released so far.
+Various multilingual models such as [mBERT](https://huggingface.co/bert-base-multilingual-cased), [BLOOM](https://huggingface.co/bigscience/bloom), and [XGLM](https://arxiv.org/abs/2112.10668) have been released so far.
 Therefore, someone might ask "why do we need to make multilingual models again?"
 Before answering the question, we would like to ask "Why do people around the world make monolingual models in their language even though there are already many multilingual models?"
 There may be various reasons, but we would like to point to dissatisfaction with the non-English language performance of the current multilingual models as the biggest reason.
