@@ -23,10 +23,10 @@ To solve this problem, we will collect large multilingual dataset with hundreds 
 Most multilingual models learned dozens of languages including low-resource languages with few users.
 For example, XGLM learned 30 languages, BLOOM learned 42 languages.
 But we plan to let go of the desire to be good at too many languages at once.
-The number of steps that a model can learn is set to some extent, and the model converges when it exceeds that. 
+The number of steps that a model can learn is set to some extent, and the model converges when it exceeds that.
 So if one model takes too many languages, the training efficiency for each language decreases.
 Therefore, we will train the model for only languages that are contained in similar language families that can make synergy between them.
-In addition, we exclude languages that are used by few users because it is difficult to collect a large amount of data - we don't want to make unrealistic promises. 
+In addition, we exclude languages that are used by few users because it is difficult to collect a large amount of data - we don't want to make unrealistic promises.
 In other words, we will only target high or middle resource languages for our project.
 
 ## 2. Projects
@@ -35,16 +35,16 @@ In other words, we will only target high or middle resource languages for our pr
 When we first started our research, we already had 1.2TB of Korean data collected by TUNiB. Before we collect a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had.
 This Korean model can be used for performance comparison with the multilingual model, and this model itself would help many Korean companies and researchers.
 
-| Size |                                      Training Status                                       | Model Card  | Model Checkpoints |
-|:----:|:------------------------------------------------------------------------------------------:|:-----------:|:-----------------:|
-| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | Coming soon |    Coming soon    |
-| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | Coming soon |    Coming soon    |
-| ...  |                                           Ready                                            | Coming soon |    Coming soon    |
+| Size |                                      Training Status                                       |                                          Model Card                                           |                        Model Checkpoints                        |
+|:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|
+| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | [Available](https://github.com/EleutherAI/polyglot/blob/main/model_cards/polyglot-ko-1.3b.md) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) |
+| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) |                                          Coming soon                                          |                           Coming soon                           |
+| ...  |                                           Ready                                            |                                          Coming soon                                          |                           Coming soon                           |
 
 ### Polyglot-East-Asian [WIP]
-We chose East Asian language as our first multilingual dataset. 
-This model includes Korean, Chinese, Japanese, Indonesian, Malay, Vietnamese, Thai and English. 
-We will train the model by collecting at least hundreds of billions tokens of data from each language and balancing them. 
+We chose East Asian language as our first multilingual dataset.
+This model includes Korean, Chinese, Japanese, Indonesian, Malay, Vietnamese, Thai and English.
+We will train the model by collecting at least hundreds of billions tokens of data from each language and balancing them.
 Some people may wonder why English is included on this list, but because English is now a global language, it can synergize with any other language in the world.
 
 | Size | Training Status | Model Card  | Model Checkpoints |
@@ -54,7 +54,7 @@ Some people may wonder why English is included on this list, but because English
 
 ## 3. Data Risks
 
-Polyglot models learn an inner representation of the various languages that can be used to extract features useful for downstream tasks. 
+Polyglot models learn an inner representation of the various languages that can be used to extract features useful for downstream tasks.
 The model is best at what it was pretrained for however, which is generating text from a prompt.
 
 ### Privacy considerations
@@ -70,7 +70,7 @@ The core functionality of Polyglot is taking a string of text and predicting the
 As with all language models, it is hard to predict in advance how Polyglot will respond to particular prompts and offensive content may occur without warning. We recommend having a human curate or filter the outputs before releasing them, both to censor undesirable content and to improve the quality of the results.
 
 ### Legal Restrictions
-Since there are laws in many countries related to data collection, we will collect data with due regard to the laws of those countries. 
+Since there are laws in many countries related to data collection, we will collect data with due regard to the laws of those countries.
 Additionally, we plan to use dataset to train our models, but we do not plan to make the dataset publicly available.
 
 ## 4. Citation and Related Information
