@@ -35,11 +35,11 @@ In other words, we will only target high or middle resource languages for our pr
 When we first started our research, we already had 1.2TB of Korean data collected by TUNiB. Before we collect a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had.
 This Korean model can be used for performance comparison with the multilingual model, and this model itself would help many Korean companies and researchers.
 
-| Size |                                      Training Status                                       |                                          Model Card                                           |                        Model Checkpoints                        |
-|:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|
-| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | [Available](https://github.com/EleutherAI/polyglot/blob/main/model_cards/polyglot-ko-1.3b.md) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) |
-| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) |                                          Coming soon                                          |                           Coming soon                           |
-| ...  |                                           Ready                                            |                                          Coming soon                                          |                           Coming soon                           |
+| Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |
+|:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|
+| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) |
+| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
+| ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                |
 
 ### Polyglot-East-Asian [WIP]
 We chose East Asian language as our first multilingual dataset.
