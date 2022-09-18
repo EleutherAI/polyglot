@@ -9,7 +9,7 @@ Therefore, someone might ask, "why do we need to make multilingual models again?
 We will focus on the following two factors to make multilingual models which show better non-English performance.
 
 #### Amount of data in each language and its balance
-Most multilingual models are trained using data from fairly uneven distribution of languages. For example, BLOOM's training data is still English-centric. English data takes 30% of the data, however some languages such as Vietnamese and Indonesian are only 1-3% of data. XGLM has taken a step forward for mitigating this problem by data up-sampling, but we believe there is a limitation of data up-sampling. To resolve this problem, we will collect a large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
+Most multilingual models are trained using data from fairly uneven distribution of languages. For example, BLOOM's training data is still English-centric. English data takes 30% of the data, however some languages such as Vietnamese and Indonesian are only 1-3% of data. XGLM has taken a step forward for mitigating this problem by data up-sampling, but we believe there is a limitation of data up-sampling. To resolve this problem, we will collect a large multilingual dataset with hundreds billions tokens per language and balance them so that the model can learn various languages in balance.
 
 #### Language selection
 
