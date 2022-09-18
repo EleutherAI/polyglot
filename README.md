@@ -15,7 +15,7 @@ We will focus on the following two factors to make multilingual models with bett
 Most multilingual models are trained using data from a fairly uneven distribution of languages.
 For example, BLOOM's training data is still English-centric.
 English accounts for 30% of their data, but only 1-3% of languages such as Vietnamese and Indonesian are included.
-XGLM has taken a step forward in that it tried to mitigate this problem by data up-sampling, but we believe the researchers who created XGLM are also know the limitations of data up-sampling.
+XGLM has taken a step forward in that it tried to mitigate this problem by data up-sampling, but we all know the limitations of data up-sampling.
 To solve this problem, we will collect large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
 
 #### Language selection
