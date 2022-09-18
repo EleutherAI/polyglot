@@ -5,8 +5,8 @@
 Various multilingual models such as [mBERT](https://huggingface.co/bert-base-multilingual-cased), [BLOOM](https://huggingface.co/bigscience/bloom), and [XGLM](https://arxiv.org/abs/2112.10668) have been released so far.
 Therefore, someone might ask "why do we need to make multilingual models again?"
 Before answering the question, we would like to ask "Why do people around the world make monolingual models in their language even though there are already many multilingual models?"
-There may be various reasons, but we would like to point to dissatisfaction with the non-English language performance of the current multilingual models as the biggest reason.
-We want to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name it as ['polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
+We would like to point to dissatisfaction with the non-English language performance of the current multilingual models as the biggest reason.
+So we wanted to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name it as ['polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
 
 ### What do we focus on to make better multilingual models?
 We will focus on the following two factors to make multilingual models with better non-English performance.
@@ -15,7 +15,7 @@ We will focus on the following two factors to make multilingual models with bett
 Most multilingual models are trained using data from a fairly uneven distribution of languages.
 For example, BLOOM's training data is still English-centric.
 English accounts for 30% of their data, but only 1-3% of languages such as Vietnamese and Indonesian are included.
-XGLM has taken a step forward in that it tried to mitigate this problem by data up-sampling, but we all know the limitations of data up-sampling.
+XGLM has taken a step forward in that it tried to mitigate this problem by data up-sampling, but we believe everyone knows the limitations of data up-sampling.
 To solve this problem, we will collect large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
 
 #### Language selection
