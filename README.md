@@ -13,7 +13,7 @@ Most multilingual models are trained using data from fairly uneven distribution 
 
 #### Language selection
 
-Most multilingual models learned dozens of languages, including low-resource languages. For example, XGLM learned 30 languages, and BLOOM learned 42 languages. However, we plan to let go of the desire to be good at too many languages at once. The number of steps a model can learn is somewhat set, and the model converges when it exceeds that. So if one model takes too many languages, the training efficiency for each language decreases. Therefore, we want to train the model with languages in similar language families which enable synergy effect between them. In addition, we have excluded languages used by a few users use because it is difficult to collect a large amount of data. Therefore, we will only focus on high or middle-resource languages for our project.
+Most multilingual models learned dozens of languages, including low-resource languages. For example, XGLM learned 30 languages, and BLOOM learned 42 languages. However, we plan to let go of the desire to be good at too many languages at once. The number of steps a model can learn is somewhat set, and the model converges when it exceeds that. So if one model takes too many languages, the training efficiency for each language decreases. Therefore, we want to train the model with languages in similar language families which enable synergy effect between them. In addition, we have excluded languages used by a few users use because it is difficult to collect a large amount of data. Therefore, we will only focus on high or middle-resource languages in our project.
 
 ## 2. Projects
 
