@@ -6,7 +6,7 @@ Various multilingual models such as [mBERT](https://huggingface.co/bert-base-mul
 Therefore, someone might ask "why do we need to make multilingual models again?"
 Before answering the question, we would like to ask "Why do people around the world make monolingual models in their language even though there are already many multilingual models?"
 We would like to point to dissatisfaction with the non-English language performance of the current multilingual models as the biggest reason.
-So we wanted to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name it as ['polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
+So we want to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name it as ['polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
 
 ### What do we focus on to make better multilingual models?
 We will focus on the following two factors to make multilingual models with better non-English performance.
