@@ -21,7 +21,7 @@ To solve this problem, we will collect large multilingual dataset with hundreds 
 #### Language selection
 
 Most multilingual models learned dozens of languages including low-resource languages with few users.
-For example, XGLM learned 30 languages, BLOOM learned 42 languages including many low-resource languages.
+For example, XGLM learned 30 languages, BLOOM learned 42 languages.
 But we plan to let go of the desire to be good at too many languages at once.
 The number of steps that a model can learn is set to some extent, and the model converges when it exceeds that. 
 So if one model takes too many languages, the training efficiency for each language decreases.
