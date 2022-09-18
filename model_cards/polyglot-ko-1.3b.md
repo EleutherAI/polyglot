@@ -123,19 +123,37 @@ python main.py \
 ## Citation and Related Information
 
 ### BibTeX entry
-
 If you find our work useful, please consider citing:
-
 ```bibtex
-@misc{polyglot,
+@misc{polyglot-ko,
   title = {{Plyglot-Ko: Open-Source Korean Autoregressive Language Model}},
   author = {Ko, Hyunwoong and Yang, Kichang and Ryu, Minho and Kim, Taekyun and Yang, Seungmu and Hyun, jiwung and Park, Sungho},
-  url = {https://www.github.com/eleutherai/multilingual},
+  url = {https://www.github.com/eleutherai/polyglot},
   month = {9},
   year = {2022},
 }
 ```
 
-### Acknowledgements
+### Licensing
+All our models are  licensed under the terms of the Apache License 2.0.
+
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+However, the model has the potential to generate unpredictable text as mentioned. Therefore, we are not responsible for any damages resulting from the use of the model.
+
+### Acknowledgement
 
 This project would not have been possible without compute generously provided by [Stability.ai](https://stability.ai), thanks them for providing a large amount of GPU resources. And thanks also go to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
+

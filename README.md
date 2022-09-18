@@ -75,7 +75,7 @@ Since there are laws in many countries related to data collection, we will colle
 Additionally, we plan to use dataset to train our models, but we do not plan to make the dataset publicly available.
 
 ## 4. Citation and Related Information
-### Citations
+### BibTeX entry
 If you find our work useful, please consider citing:
 ```bibtex
 @misc{polyglot-ko,
