@@ -38,7 +38,7 @@ This Korean model can be used for performance comparison with the multilingual m
 | Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |
 |:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|
 | 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) |
-| 2.7B | [Training](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
+| 2.7B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
 | ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                |
 
 ### Polyglot-East-Asian [WIP]
