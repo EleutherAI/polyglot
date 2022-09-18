@@ -32,7 +32,7 @@ In other words, we will only target high or middle resource languages for our pr
 ## 2. Projects
 
 ### Polyglot-Ko [WIP]
-When we first started our research, we already had 1.2TB of Korean data collected by TUNiB. Before we collect a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had.
+When we first started our research, we already had 1.2TB of Korean data collected by [TUNiB](https://tunib.ai/). Before we collect a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had.
 This Korean model can be used for performance comparison with the multilingual model, and this model itself would help many Korean companies and researchers.
 
 | Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |
