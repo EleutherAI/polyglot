@@ -3,22 +3,22 @@
 ## 1. Introduction
 ### Why another multilingual model?
 Various multilingual models such as [mBERT](https://huggingface.co/bert-base-multilingual-cased), [BLOOM](https://huggingface.co/bigscience/bloom), and [XGLM](https://arxiv.org/abs/2112.10668) have been released.
-Therefore, someone might ask, "why do we need to make multilingual models again?" Before answering the question, we would like to ask, "Why do people around the world make monolingual models in their language even though there are already many multilingual models?" We would like to point to dissatisfaction with the non-English language performance of the current multilingual models as the most significant reason. So we want to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name them ['polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
+Therefore, someone might ask, "why do we need to make multilingual models again?" Before answering the question, we would like to ask, "Why do people around the world make monolingual models in their language even though there are already many multilingual models?" We would like to point out there is a dissatisfaction with the non-English language performance of the current multilingual models as one of the most significant reason. So we want to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name them ['polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
 
 ### What do we focus on to make better multilingual models?
-We will focus on the following two factors to make multilingual models with better non-English performance.
+We will focus on the following two factors to make multilingual models which show better non-English performance.
 
 #### Amount of data in each language and its balance
-Most multilingual models are trained using data from fairly uneven distribution of languages. For example, BLOOM's training data is still English-centric. English accounts for 30% of their data, but only 1-3% of languages such as Vietnamese and Indonesian are included. XGLM has taken a step forward in that it tried to mitigate this problem by data up-sampling, but we believe everyone knows the limitations of data up-sampling. To solve this problem, we will collect a large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
+Most multilingual models are trained using data from fairly uneven distribution of languages. For example, BLOOM's training data is still English-centric. English data takes 30% of the data, however some languages such as Vietnamese and Indonesian are only 1-3% of data. XGLM has taken a step forward for mitigating this problem by data up-sampling, but we believe there is a limitation of data up-sampling. To resolve this problem, we will collect a large multilingual dataset with hundreds of billions of tokens per language and balance them so that the model can learn various languages in balance.
 
 #### Language selection
 
-Most multilingual models learned dozens of languages, including low-resource languages, with few users. For example, XGLM learned 30 languages, and BLOOM learned 42 languages. However, we plan to let go of the desire to be good at too many languages at once. The number of steps a model can learn is somewhat set, and the model converges when it exceeds that. So if one model takes too many languages, the training efficiency for each language decreases. Therefore, we will train the model for only languages that are contained in similar language families that can make synergy between them. In addition, we exclude languages that a few users use because it is difficult to collect a large amount of data - we do not want to make unrealistic promises. In other words, we will only target high or middle-resource languages for our project.
+Most multilingual models learned dozens of languages, including low-resource languages, with few users. For example, XGLM learned 30 languages, and BLOOM learned 42 languages. However, we plan to let go of the desire to be good at too many languages at once. The number of steps a model can learn is somewhat set, and the model converges when it exceeds that. So if one model takes too many languages, the training efficiency for each language decreases. Therefore, we want to train the model with languages in similar language families which enable synergy effect between them. In addition, we have excluded languages used by a few users use because it is difficult to collect a large amount of data. Therefore, we will only focus on high or middle-resource languages for our project.
 
 ## 2. Projects
 
 ### Polyglot-Ko [WIP]
-When we started our research, we already had 1.2TB of Korean data collected by [TUNiB](https://tunib.ai/). Before we collected a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had. This Korean model can be used for performance comparison with the multilingual model, and this model itself would help many Korean companies and researchers.
+When we started our research, we have already had 1.2TB of Korean data collected by [TUNiB](https://tunib.ai/). Before we collected a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had. This Korean model can be used for performance comparison with the multilingual models, and this model itself would help many Korean companies and researchers.
 
 | Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |
 |:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|
@@ -30,8 +30,8 @@ When we started our research, we already had 1.2TB of Korean data collected by [
 ### Polyglot-East-Asian [WIP]
 We chose the East Asian language as our first multilingual dataset.
 This model includes Korean, Chinese, Japanese, Indonesian, Malay, Vietnamese, Thai, and English.
-We will train the model by collecting at least hundreds of billions of tokens of data from each language and balancing them.
-Some people may wonder why English is included on this list, but because English is now a global language, it can synergize with any other language.
+We will train the model by collecting at least hundreds of billions tokens of data from each language and balancing them.
+Some people may wonder why English is included on this list, but because English is now a global language,we believe it could synergize with any other language in the world.
 
 | Size | Training Status | Model Card  | Model Checkpoints |
 |:----:|:---------------:|:-----------:|:-----------------:|
