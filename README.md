@@ -1,6 +1,6 @@
 # Polyglot: Large Language Models of Well-balanced Competence in Multi-languages
 
-## 1. Project Description
+## 1. Introduction
 ### Why another multilingual model?
 Various multilingual models such as mBERT, BLOOM, and XGLM have been released so far.
 Therefore, someone might ask "why do we need to make multilingual models again?"
@@ -30,7 +30,7 @@ Therefore, we will train the model for only languages that are contained in simi
 In addition, we exclude languages that are used by few users because it is difficult to collect a large amount of data - we don't want to make unrealistic promises. 
 In other words, we will only target high or middle resource languages for our project.
 
-## 2. Project Roadmap
+## 2. Projects
 
 ### Polyglot-Ko [WIP]
 When we first started our research, we already had 1.2TB of Korean data collected by TUNiB. Before we collect a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had.
