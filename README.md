@@ -31,7 +31,7 @@ When we started our research, we have already had 1.2TB of Korean data collected
 We chose the East Asian language as our first multilingual dataset.
 This model includes Korean, Chinese, Japanese, Indonesian, Malay, Vietnamese, Thai, and English.
 We will train the model by collecting at least hundreds of billions tokens of data from each language and balancing them.
-Some people may wonder why English is included on this list, but because English is now a global language,we believe it could synergize with any other language in the world.
+Some people may wonder why English is included on this list, but because English is now a global language, we believe it could synergize with any other language in the world.
 
 | Size | Training Status | Model Card  | Model Checkpoints |
 |:----:|:---------------:|:-----------:|:-----------------:|
