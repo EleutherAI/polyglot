@@ -93,4 +93,4 @@ However, the model has the potential to generate unpredictable text as mentioned
 
 ### Acknowledgement
 
-This project would not have been possible without the computing resources provided by [Stability.ai](https://stability.ai). Thanks for providing a large amount of GPU resources and to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
+This project would not have been possible without the computing resources provided by [Stability.ai](https://stability.ai). Thanks for providing a large amount of GPU resources. Furthermore, thanks to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
