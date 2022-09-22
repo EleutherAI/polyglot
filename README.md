@@ -1,6 +1,7 @@
 # Polyglot: Large Language Models of Well-balanced Competence in Multi-languages
 
 ## 1. Introduction
+
 ### Why another multilingual model?
 Various multilingual models such as [mBERT](https://huggingface.co/bert-base-multilingual-cased), [BLOOM](https://huggingface.co/bigscience/bloom), and [XGLM](https://arxiv.org/abs/2112.10668) have been released.
 Therefore, someone might ask, "why do we need to make multilingual models again?" Before answering the question, we would like to ask, "Why do people around the world make monolingual models in their language even though there are already many multilingual models?" We would like to point out there is a dissatisfaction with the non-English language performance of the current multilingual models as one of the most significant reason. So we want to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name them ['Polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
@@ -12,7 +13,6 @@ We will focus on the following two factors to make multilingual models which sho
 Most multilingual models are trained using data from fairly uneven distribution of languages. For example, BLOOM's training data is still English-centric. English data takes 30% of the data, however some languages such as Vietnamese and Indonesian are only 1-3% of data. XGLM has taken a step forward for mitigating this problem by data up-sampling, but we believe there is a limitation of data up-sampling. To resolve this problem, we will collect a large multilingual dataset with hundreds billions tokens per language and balance them so that the model can learn various languages in balance.
 
 #### Language selection
-
 Most multilingual models learned dozens of languages, including low-resource languages. For example, XGLM learned 30 languages, and BLOOM learned 42 languages. However, we plan to let go of the desire to be good at too many languages at once. The number of steps a model can learn is somewhat set, and the model converges when it exceeds that. So if one model takes too many languages, the training efficiency for each language decreases. Therefore, we want to train the model with languages in similar language families which enable synergy effect between them. In addition, we have excluded languages used by a few users use because it is difficult to collect a large amount of data. Therefore, we will only focus on high or middle-resource languages in our project.
 
 ## 2. Projects
@@ -60,6 +60,7 @@ Since there are laws in many countries related to data collection, we will colle
 Additionally, we plan to use the dataset to train our models, but we do not plan to make the dataset publicly available.
 
 ## 4. Citation and Related Information
+
 ### BibTeX entry
 If you find our work useful, please consider citing:
 ```bibtex
