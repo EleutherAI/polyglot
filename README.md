@@ -22,9 +22,10 @@ When we started our research, we have already had 1.2TB of Korean data collected
 
 | Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |
 |:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|
-| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-1b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) |
-| 3.8B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-3b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b/tree/main) |
-| 5.9B | [Finished](https://wandb.ai/eleutherai-oslo/gpt-neox-ko-6b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
+| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-1_3b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) |
+| 3.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-3_8b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b/tree/main) |
+| 5.9B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-5_9b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
+| 13B  | [Training](https://wandb.ai/eleutherai-oslo/polyglot-ko-13b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
 | ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                |
 
 ### Polyglot-East-Asian [WIP]
