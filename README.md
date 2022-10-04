@@ -41,24 +41,15 @@ Some people may wonder why English is included on this list, but because English
 
 ## 3. Data Risks
 
-Polyglot models learn an inner representation of the various languages that can be used to extract features useful for downstream tasks.
-The model is best at what it was pre-trained for, however, generating text from a prompt.
-
 ### Privacy considerations
-General training algorithms for pre-trained language models have many hazards, that memorize personal information in training data. We added the following tokens to vocabulary to mitigate privacy problems and replaced much personal information with these tokens in data preprocessing steps.
+In order to avoid the model memorizing and generating personally identifiable information (PII) in the training data, we masked out the following sensitive information in the pre-processing stage:
 
 * `<|acc|>` : bank account number
 * `<|rrn|>` : resident registration number
 * `<|tell|>` : phone number
 
 ### Limitations and Biases
-The core functionality of Polyglot is taking a string of text and predicting the next token. While language models are widely used for tasks other than this, there are a lot of unknowns with this work. When prompting Polyglot it is important to remember that the statistically most likely next token is often not the token that produces the most "accurate" text. Never depend upon Polyglot to produce factually accurate output. Depending upon the use case, Polyglot may produce socially unacceptable text.
-
-As with all language models, it is hard to predict in advance how Polyglot will respond to particular prompts, and offensive content may occur without warning. We recommend having a human curate or filter the outputs before releasing them, both to censor undesirable content and to improve the quality of the results.
-
-### Legal Restrictions
-Since there are laws in many countries related to data collection, we will collect data with due regard to the laws of those countries.
-Additionally, we plan to use the dataset to train our models, but we do not plan to make the dataset publicly available.
+Polyglot has been trained to optimize next token prediction. Language models such as this are often used for a wide variety of tasks and it is important to be aware of possible unexpected outcomes. For instance, Polyglot will not always return the most factual or accurate response but the most statistically likely one. In addition, Polyglot may produce socially unacceptable or offensive content. We recommend having a human curator or other filtering mechanism to censor sensitive content.
 
 ## 4. Citation and Related Information
 
@@ -94,5 +85,4 @@ limitations under the License.
 However, the model has the potential to generate unpredictable text as mentioned. Therefore, we are not responsible for any damages resulting from the use of the model.
 
 ### Acknowledgement
-
-This project would not have been possible without the computing resources provided by [Stability.ai](https://stability.ai). Thanks for providing a large amount of GPU resources. Furthermore, thanks to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
+This project was made possible thanks to the computing resources from [Stability.ai](https://stability.ai), and thanks to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
