@@ -25,7 +25,7 @@ When we started our research, we have already had 1.2TB of Korean data collected
 | 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-1_3b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) |
 | 3.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-3_8b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b/tree/main) |
 | 5.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-5_8b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
-|12.8B | [Training](https://wandb.ai/eleutherai-oslo/polyglot-ko-13b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
+|12.8B | [Training](https://wandb.ai/eleutherai-oslo/polyglot-ko-12_8b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
 | ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                |
 
 ### Polyglot-East-Asian [WIP]
