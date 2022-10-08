@@ -20,13 +20,13 @@ Most multilingual models learned dozens of languages, including low-resource lan
 ### Polyglot-Ko [WIP]
 When we started our research, we have already had 1.2TB of Korean data collected by [TUNiB](https://tunib.ai/). Before we collected a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had. This Korean model can be used for performance comparison with the multilingual models, and this model itself would help many Korean companies and researchers.
 
-| Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |
-|:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|
-| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-1_3b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) |
-| 3.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-3_8b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b/tree/main) |
-| 5.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-5_8b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
-|12.8B | [Training](https://wandb.ai/eleutherai-oslo/polyglot-ko-12_8b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                |
-| ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                |
+| Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |                            Demo Server                             |
+|:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
+| 1.3B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-1_3b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) | [Available](https://huggingface.co/spaces/EleutherAI/polyglot-ko-1.3b) |
+| 3.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-3_8b?workspace=user-eleutherai-oslo) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b/tree/main) | N/A
+| 5.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-5_8b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                                | [Available](https://master-polyglot-deploy-jason9693.endpoint.ainize.ai/) |
+|12.8B | [Training](https://wandb.ai/eleutherai-oslo/polyglot-ko-12_8b?workspace=user-eleutherai-oslo) |                           Coming soon                           |                                Coming soon                               | Comming soon
+| ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                  | Comming soon
 
 ### Polyglot-East-Asian [WIP]
 We chose the East Asian language as our first multilingual dataset.
@@ -85,4 +85,4 @@ limitations under the License.
 However, the model has the potential to generate unpredictable text as mentioned. Therefore, we are not responsible for any damages resulting from the use of the model.
 
 ### Acknowledgement
-This project was made possible thanks to the computing resources from [Stability.ai](https://stability.ai), and thanks to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset for this work.
+This project was made possible thanks to the computing resources from [Stability.ai](https://stability.ai), thanks to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset, and thanks to [Common Computer](https://comcom.ai/en/) for providing a demo server(GPU) for this work.
