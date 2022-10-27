@@ -58,7 +58,7 @@ If you find our work useful, please consider citing:
 ```bibtex
 @misc{polyglot-ko,
   title = {{Polyglot-Ko: Open-Source Korean Autoregressive Language Model}},
-  author = {Ko, Hyunwoong and Yang, Kichang and Ryu, Minho and Kim, Taekyun and Yang, Seungmu and Hyun, jiwung and Park, Sungho},
+  author = {Ko, Hyunwoong and Yang, Kichang and Ryu, Minho and Choi, Taekyoon and Yang, Seungmu and Hyun, jiwung and Park, Sungho},
   url = {https://www.github.com/eleutherai/polyglot},
   month = {9},
   year = {2022},
