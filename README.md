@@ -40,7 +40,7 @@ Some people may wonder why English is included on this list, but because English
 
 
 ### Polyglot-Romance [WIP]
-We also plan on testing several multilingual hypotheses on both typologically related and unrelated languages of the Romance family. The final model for the Romance languages will include billions of tokens for Spanish, French, Italian, Portiguese, and Romanian. English is also included for the same reasons stated above.
+We also plan on testing several multilingual hypotheses on both typologically related and unrelated languages of the Romance family. The final model for the Romance languages will include billions of tokens for Spanish, French, Italian, Portuguese, and Romanian. English is also included for the same reasons stated above.
 
 | Size | Training Status | Model Card  | Model Checkpoints |
 |:----:|:---------------:|:-----------:|:-----------------:|
