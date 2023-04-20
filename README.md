@@ -22,7 +22,7 @@ When we started our research, we have already had 1.2TB of Korean data collected
 We successfully released the Polyglot-ko series in 2022. However, we created the models in a hurry and didn't consider deeply about dataset combinations, tokenizers, training configurations, etc. Therefore, we are going to develop the Polyglot-ko-v2 model series in 2023. We have collected hundreds of gigabytes of additional Korean data for this. These models use a higher quality tokenizer than the v1 series and higher quality datasets including Korean, English, and programming code.
 
 ### 3) Polyglot-ja [WIP]
-We are developing Polyglot-ja, A serise of Japanese-centric multilingual large language models. Unlike Polyglot-ko, which were simple large models of a non-English language, we plan to research the following to develop more effective multilingual large language models. We are working with Stability AI Japan on this work.
+We are developing Polyglot-ja, A serise of Japanese-centric multilingual large language models. Unlike Polyglot-ko, which were simple large models of a non-English language, we plan to research the following to develop more effective multilingual large language models. We are working with [Stability AI Japan](https://twitter.com/StabilityAI_JP) on this work.
 
 - Effects between multiple languages.
    - research how multilingual data affects the performance of a specific language performance.
