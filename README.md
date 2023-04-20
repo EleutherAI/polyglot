@@ -76,4 +76,4 @@ limitations under the License.
 However, the model has the potential to generate unpredictable text as mentioned. Therefore, we are not responsible for any damages resulting from the use of the model.
 
 ### Acknowledgement
-This project was made possible thanks to the computing resources from [Stability.ai](https://stability.ai), thanks to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset, and thanks to [Common Computer](https://comcom.ai/en/) for providing a demo server(GPU) for this work.
+This project was made possible thanks to the computing resources from [Stability.ai](https://stability.ai), thanks to [TUNiB](https://tunib.ai) for providing a large-scale Korean dataset.
