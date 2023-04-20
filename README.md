@@ -29,7 +29,7 @@ We are developing Polyglot-Ja, A serise of Japanese-centric multilingual large l
 - Effects between multiple languages.
    - Research how multilingual data affects the performance of a specific language performance.
    - Research how the ratio between languages affects the multilingual language model.
-   - Research synergistic effects among a specific language and some other languages in the similar language family.
+   - Research synergy effects from similar language families.
 - Effects between model size and languages.
    - Observe the changes in multilingual ability as the model size increases.
 
