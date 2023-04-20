@@ -27,11 +27,11 @@ We successfully released the Polyglot-ko series in 2022. However, we created the
 We are developing Polyglot-Ja, A serise of Japanese-centric multilingual large language models. Unlike Polyglot-ko, which were simple large models trained on a single non-English language, we plan to research the following to develop more effective multilingual large language models. We are working with [Stability AI Japan](https://twitter.com/StabilityAI_JP) on this work.
 
 - Effects between multiple languages.
-   - research how multilingual data affects the performance of a specific language performance.
-   - research how the ratio between languages affects the multilingual language model.
-   - research whether synergistic effects exist between language families.
+   - Research how multilingual data affects the performance of a specific language performance.
+   - Research how the ratio between languages affects the multilingual language model.
+   - Research whether synergistic effects exist between language families.
 - Effects between model size and languages.
-   - observe the changes in multilingual ability as the model size increases.
+   - Observe the changes in multilingual ability as the model size increases.
 
 ### 4. Other projects [WIP]
 - Polyglot-romance: We are developing Romance models trained on Spanish, Portuguese, French, Italian, and Romanian datasets.
