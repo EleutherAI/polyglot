@@ -20,20 +20,7 @@ When we started our research, we have already had 1.2TB of Korean data collected
 
 💡 We are collaborating with KoAlpaca team which is creating a series of Korean instruct fine-tuned models. As a result, we were able to release the Koalapca-Polyglot models. Please refer to [here](https://github.com/Beomi/KoAlpaca) to see more details.
 
-### 2) Polyglot-Ko-v2 [WIP]
-We successfully released the Polyglot-ko series in 2022. However, we created the models in a hurry and didn't consider deeply about dataset combinations, tokenizers, training configurations, etc. Therefore, we are going to develop the Polyglot-ko-v2 model series in 2023. We have collected hundreds of gigabytes of additional Korean data for this. These models use a higher quality tokenizer than the v1 series and higher quality datasets including Korean, English, and programming code.
-
-### 3) Polyglot-Ja [WIP]
-We are developing Polyglot-Ja, A serise of Japanese-centric multilingual large language models. Unlike Polyglot-ko, which were simple large models trained on a single non-English language, we plan to research the following to develop more effective multilingual large language models. We are working with [Stability AI Japan](https://twitter.com/StabilityAI_JP) on this work.
-
-- Effects between multiple languages.
-   - Research how multilingual data affects the performance of a specific language performance.
-   - Research how the ratio between languages affects the multilingual language model.
-   - Research synergy effects from similar language families.
-- Effects between model size and languages.
-   - Observe the changes in multilingual ability as the model size increases.
-
-### 4. Other projects [WIP]
+### Work in process projects
 - Polyglot-romance: We are developing Romance models trained on Spanish, Portuguese, French, Italian, Romanian, English and programming code datasets.
 - Polyglot-asean: We are developing Southeast Asian models trained on Indonesian, Malay, Vietnamese, Thai, English and programming code datasets.
 - Polyglot-balanced: We are developing balanced multilingual models trained on all of our multilingual datasets. We'll include English, Chinese, Japanese, Korean, Spanish, Portuguese, Italian, Romanian, Indonesian, Malay, Vietnamese, Thai and programming code datasets for these models.
