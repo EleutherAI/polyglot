@@ -34,8 +34,8 @@ We are developing Polyglot-Ja, A serise of Japanese-centric multilingual large l
    - Observe the changes in multilingual ability as the model size increases.
 
 ### 4. Other projects [WIP]
-- Polyglot-romance: We are developing Romance models trained on Spanish, Portuguese, French, Italian, and Romanian datasets.
-- Polyglot-asean: We are developing Southeast Asian models trained on Indonesian, Malay, Vietnamese, and Thai datasets.
+- Polyglot-romance: We are developing Romance models trained on Spanish, Portuguese, French, Italian, Romanian, English and programming code datasets.
+- Polyglot-asean: We are developing Southeast Asian models trained on Indonesian, Malay, Vietnamese, Thai, English and programming code datasets.
 - Polyglot-balanced: We are developing balanced multilingual models trained on all of our multilingual datasets. We'll include English, Chinese, Japanese, Korean, Spanish, Portuguese, Italian, Romanian, Indonesian, Malay, Vietnamese, Thai and programming code datasets for these models.
 
 ## 3. Limitations and Biases
