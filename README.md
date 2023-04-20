@@ -6,57 +6,37 @@
 Various multilingual models such as [mBERT](https://huggingface.co/bert-base-multilingual-cased), [BLOOM](https://huggingface.co/bigscience/bloom), and [XGLM](https://arxiv.org/abs/2112.10668) have been released.
 Therefore, someone might ask, "why do we need to make multilingual models again?" Before answering the question, we would like to ask, "Why do people around the world make monolingual models in their language even though there are already many multilingual models?" We would like to point out there is a dissatisfaction with the non-English language performance of the current multilingual models as one of the most significant reason. So we want to make multilingual models with higher non-English language performance. This is the reason we need to make multilingual models again and why we name them ['Polyglot'](https://www.spanish.academy/blog/what-is-the-difference-between-a-polyglot-and-a-multilingual-person/).
 
-### What do we focus on to make better multilingual models?
-We will focus on the following two factors to make multilingual models which show better non-English performance.
-
-#### Amount of data in each language and its balance
-Most multilingual models are trained using data from fairly uneven distribution of languages. For example, BLOOM's training data is still English-centric. English data takes 30% of the data, however some languages such as Vietnamese and Indonesian are only 1-3% of data. XGLM has taken a step forward for mitigating this problem by data up-sampling, but we believe there is a limitation of data up-sampling. To resolve this problem, we will collect large multilingual datasets with hundreds billions tokens per language and balance them so that the model can learn various languages in balance.
-
-#### Language selection
-Most multilingual models learned dozens of languages, including low-resource languages. For example, XGLM learned 30 languages, and BLOOM learned 42 languages. However, we plan to let go of the desire to be good at too many languages at once. The number of steps a model can learn is somewhat set, and the model converges when it exceeds that. So if one model takes too many languages, the training efficiency for each language decreases. Therefore, we want to train the model with languages in similar language families which enable synergy effect between them. In addition, we have excluded languages used by a few users use because it is difficult to collect a large amount of data. Therefore, we will only focus on high or middle-resource languages in our project.
-
 ## 2. Projects
 
-### Polyglot-Ko [WIP]
+### 1) Polyglot-Ko [DONE]
 When we started our research, we have already had 1.2TB of Korean data collected by [TUNiB](https://tunib.ai/). Before we collected a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had. This Korean model can be used for performance comparison with the multilingual models, and this model itself would help many Korean companies and researchers.
 
 | Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |                            Demo Server                             |
 |:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
 | 1.3B | [Finished](https://wandb.ai/eleutherai/polyglot-ko/groups/polyglot-ko-1.3B) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-1.3b/tree/main) | [Available](https://huggingface.co/spaces/EleutherAI/polyglot-ko-1.3b) |
 | 3.8B | [Finished](https://wandb.ai/eleutherai/polyglot-ko/groups/polyglot-ko-3.8B) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b) | [Available](https://huggingface.co/EleutherAI/polyglot-ko-3.8b/tree/main) | N/A                                                                    |
-| 5.8B | [Finished](https://wandb.ai/eleutherai/polyglot-ko/groups/polyglot-ko-5.8B) |                           [Available](https://huggingface.co/EleutherAI/polyglot-ko-5.8b)                           |                                [Available](https://huggingface.co/EleutherAI/polyglot-ko-5.8b/tree/main)                                | [Available](https://master-polyglot-deploy-jason9693.endpoint.ainize.ai/)                                                           |
-|12.8B | [Stopped](https://wandb.ai/eleutherai-oslo/polyglot-ko-12_8b) |                           Coming soon                           |                                Coming soon                               | Coming soon
-| ...  |                                           Ready                                            |                           Coming soon                           |                                Coming soon                                  | Coming soon
+| 5.8B | [Finished](https://wandb.ai/eleutherai/polyglot-ko/groups/polyglot-ko-5.8B) |                           [Available](https://huggingface.co/EleutherAI/polyglot-ko-5.8b)                           |                                [Available](https://huggingface.co/EleutherAI/polyglot-ko-5.8b/tree/main)                                | N/A                                                           |
+|12.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-12_8b) |              [Available](https://huggingface.co/EleutherAI/polyglot-ko-12.8b)                           |                                [Available](https://huggingface.co/EleutherAI/polyglot-ko-12.8b/tree/main)                               | N/A
 
-### Polyglot-East-Asian [WIP]
-We chose the East Asian language as our first multilingual dataset.
-This model includes Korean, Chinese, Japanese, Indonesian, Malay, Vietnamese, Thai, and English.
-We will train the model by collecting at least hundreds of billions tokens of data from each language and balancing them.
-Some people may wonder why English is included on this list, but because English is now a global language, we believe it could synergize with any other language in the world.
+### 2) Polyglot-Ko-v2 [WIP]
+We successfully released the Polyglot-ko series in 2022. However, we created the models in a hurry and didn't consider deeply about dataset combinations, tokenizers, training configurations, etc. Therefore, we are going to develop the Polyglot-ko-v2 model series in 2023. We have collected hundreds of gigabytes of additional Korean data for this. These models use a higher quality tokenizer than the v1 series and higher quality datasets including Korean, English, and programming code.
 
-| Size | Training Status | Model Card  | Model Checkpoints |
-|:----:|:---------------:|:-----------:|:-----------------:|
-| ...  |      Ready      | Coming soon |    Coming soon    |
+### 3) Polyglot-ja [WIP]
+We are developing Polyglot-ja, A serise of Japanese-centric multilingual large language models. Unlike Polyglot-ko, which were simple large models of a non-English language, we plan to research the following to develop more effective multilingual large language models. We are working with Stability AI Japan on this work.
 
+- Effects between multiple languages.
+   - research how multilingual data affects the performance of a specific language performance.
+   - research how the ratio between languages affects the multilingual language model.
+   - research whether synergistic effects exist between language families.
+- Effects between model size and languages.
+   - observe the changes in multilingual ability as the model size increases.
 
-### Polyglot-Romance [WIP]
-We also plan on testing several multilingual hypotheses on both typologically related and unrelated languages of the Romance family. The final model for the Romance languages will include billions of tokens for Spanish, French, Italian, Portuguese, and Romanian. English is also included for the same reasons stated above.
+### 4. Other projects [WIP]
+- Polyglot-romance: We are developing Romance models trained on Spanish, Portuguese, French, Italian, and Romanian datasets.
+- Polyglot-asean: We are developing Southeast Asian models trained on Indonesian, Malay, Vietnamese, and Thai datasets.
+- Polyglot-balanced: We are developing balanced multilingual models trained on all of our multilingual datasets. We'll include English, Chinese, Japanese, Korean, Spanish, Portuguese, Italian, Romanian, Indonesian, Malay, Vietnamese, Thai and programming code datasets for these models.
 
-| Size | Training Status | Model Card  | Model Checkpoints |
-|:----:|:---------------:|:-----------:|:-----------------:|
-| ...  |      Ready      | Coming soon |    Coming soon    |
-
-
-## 3. Data Risks
-
-### Privacy considerations
-In order to avoid the model memorizing and generating personally identifiable information (PII) in the training data, we masked out the following sensitive information in the pre-processing stage:
-
-* `<|acc|>` : bank account number
-* `<|rrn|>` : resident registration number
-* `<|tell|>` : phone number
-
-### Limitations and Biases
+## 3. Limitations and Biases
 Polyglot has been trained to optimize next token prediction. Language models such as this are often used for a wide variety of tasks and it is important to be aware of possible unexpected outcomes. For instance, Polyglot will not always return the most factual or accurate response but the most statistically likely one. In addition, Polyglot may produce socially unacceptable or offensive content. We recommend having a human curator or other filtering mechanism to censor sensitive content.
 
 ## 4. Citation and Related Information
@@ -72,6 +52,7 @@ If you find our work useful, please consider citing:
   year = {2022},
 }
 ```
+
 
 ### Licensing
 All our models are licensed under the terms of the Apache License 2.0.
