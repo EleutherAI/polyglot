@@ -20,7 +20,7 @@ When we started our research, we have already had 1.2TB of Korean data collected
 
 💡 We are collaborating with KoAlpaca team which is creating a series of Korean instruct fine-tuned models. As a result, we were able to release the Koalapca-Polyglot models. Please refer to [here](https://github.com/Beomi/KoAlpaca) to see more details.
 
-### Work in process projects
+### 2) Work in process projects
 - Polyglot-romance: We are developing Romance models trained on Spanish, Portuguese, French, Italian, Romanian, English and programming code datasets.
 - Polyglot-asean: We are developing Southeast Asian models trained on Indonesian, Malay, Vietnamese, Thai, English and programming code datasets.
 - Polyglot-balanced: We are developing balanced multilingual models trained on all of our multilingual datasets. We'll include English, Chinese, Japanese, Korean, Spanish, Portuguese, Italian, Romanian, Indonesian, Malay, Vietnamese, Thai and programming code datasets for these models.
