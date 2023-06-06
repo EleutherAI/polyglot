@@ -28,12 +28,13 @@ Polyglot has been trained to optimize next token prediction. Language models suc
 ### BibTeX entry
 If you find our work useful, please consider citing:
 ```bibtex
-@misc{polyglot-ko,
-  title = {{Polyglot-Ko: Open-Source Korean Autoregressive Language Model}},
-  author = {Ko, Hyunwoong and Yang, Kichang and Ryu, Minho and Choi, Taekyoon and Yang, Seungmu and Hyun, jiwung and Park, Sungho},
-  url = {https://www.github.com/eleutherai/polyglot},
-  month = {9},
-  year = {2022},
+@misc{ko2023technical,
+      title={A Technical Report for Polyglot-Ko: Open-Source Large-Scale Korean Language Models}, 
+      author={Hyunwoong Ko and Kichang Yang and Minho Ryu and Taekyoon Choi and Seungmu Yang and jiwung Hyun and Sungho Park},
+      year={2023},
+      eprint={2306.02254},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
 }
 ```
 
