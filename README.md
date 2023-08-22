@@ -11,7 +11,8 @@ Therefore, someone might ask, "why do we need to make multilingual models again?
 ### 1) Polyglot-Ko [DONE]
 When we started our research, we have already had 1.2TB of Korean data collected by [TUNiB](https://tunib.ai/). Before we collected a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had. This Korean model can be used for performance comparison with the multilingual models, and this model itself would help many Korean companies and researchers.
 
-Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Kichang Yang](https://github.com/jason9693), [Minho Ryu](https://github.com/bzantium), [Taekyoon Choi](https://github.com/Taekyoon), [Seungmu Yang](https://github.com/Ronalmoo), [jiwung Hyun](https://github.com/kabbi159), [Sungho Park](https://github.com/naem1023)
+- Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Kichang Yang](https://github.com/jason9693), [Minho Ryu](https://github.com/bzantium), [Taekyoon Choi](https://github.com/Taekyoon), [Seungmu Yang](https://github.com/Ronalmoo), [jiwung Hyun](https://github.com/kabbi159), [Sungho Park](https://github.com/naem1023)
+- Paper: https://arxiv.org/abs/2306.02254
 
 | Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |                            
 |:----:|:------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|:-------------------------------------------------------------------------:|
@@ -25,7 +26,8 @@ Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Kichang Yang](htt
 ### 2) Japanese StableLM [DONE]
 We co-worked with StabilityAI Japan to create open source Japanese language models. We've mainly contributed to dataset collection part for this project.
 
-Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54), [KeunSeok Im](https://github.com/Mineru98)
+- Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54), [KeunSeok Im](https://github.com/Mineru98)
+- Blog post: https://stability.ai/blog/stability-ai-new-jplm-japanese-language-model-stablelm
 
 | Size        |                                      Training Status                                       |                                    Model Card                                      |                             Model Checkpoints                             |    
 |:-----------:|:------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
