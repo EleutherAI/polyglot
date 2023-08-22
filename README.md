@@ -28,9 +28,9 @@ We co-worked with StabilityAI Japan to create open source Japanese language mode
 Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54)
 
 | Size        |                                      Training Status                                       |                                    Model Card                                      |                             Model Checkpoints                             |    
-|:-----------:|:------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|
+|:-----------:|:------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
 | 7B-base     | Finished                                                                                   | [Available](https://huggingface.co/stabilityai/japanese-stablelm-base-alpha-7b)    | [Available](https://huggingface.co/stabilityai/japanese-stablelm-base-alpha-7b/tree/main)    |
-| 7B-instruct | Finished                                                                                   | [Available](https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b)| [Available](https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b/tree/main)|
+| 7B-instruct | Finished                                                                                   | [Available](https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b)| [Available](https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b/tree/main)  |
 
 
 ## 3. Limitations and Biases
