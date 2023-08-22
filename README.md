@@ -18,8 +18,8 @@ When we started our research, we have already had 1.2TB of Korean data collected
 | 5.8B | [Finished](https://wandb.ai/eleutherai/polyglot-ko/groups/polyglot-ko-5.8B) |                           [Available](https://huggingface.co/EleutherAI/polyglot-ko-5.8b)                           |                                [Available](https://huggingface.co/EleutherAI/polyglot-ko-5.8b/tree/main)                                | 
 |12.8B | [Finished](https://wandb.ai/eleutherai-oslo/polyglot-ko-12_8b) |              [Available](https://huggingface.co/EleutherAI/polyglot-ko-12.8b)                           |                                [Available](https://huggingface.co/EleutherAI/polyglot-ko-12.8b/tree/main)
 
-- Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Kichang Yang](https://github.com/jason9693), [Minho Ryu](https://github.com/bzantium), [Taekyoon Choi](https://github.com/Taekyoon), [Seungmu Yang](https://github.com/Ronalmoo), [jiwung Hyun](https://github.com/kabbi159), [Sungho Park](https://github.com/naem1023)
 - Technical report: https://arxiv.org/abs/2306.02254
+- Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Kichang Yang](https://github.com/jason9693), [Minho Ryu](https://github.com/bzantium), [Taekyoon Choi](https://github.com/Taekyoon), [Seungmu Yang](https://github.com/Ronalmoo), [jiwung Hyun](https://github.com/kabbi159), [Sungho Park](https://github.com/naem1023)
 
 💡 We are collaborating with KoAlpaca team which is creating a series of Korean instruct fine-tuned models. As a result, we were able to release the Koalapca-Polyglot models. Please refer to [here](https://github.com/Beomi/KoAlpaca) to see more details.
 
@@ -31,8 +31,8 @@ We co-worked with StabilityAI Japan to create open source Japanese language mode
 | 7B-base     | Finished                                                                                   | [Available](https://huggingface.co/stabilityai/japanese-stablelm-base-alpha-7b)    | [Available](https://huggingface.co/stabilityai/japanese-stablelm-base-alpha-7b/tree/main)    |
 | 7B-instruct | Finished                                                                                   | [Available](https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b)| [Available](https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b/tree/main)  |
 
-- Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54), [KeunSeok Im](https://github.com/Mineru98)
 - Blog post: https://stability.ai/blog/stability-ai-new-jplm-japanese-language-model-stablelm
+- Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54), [KeunSeok Im](https://github.com/Mineru98)
 
 ## 3. Limitations and Biases
 Polyglot has been trained to optimize next token prediction. Language models such as this are often used for a wide variety of tasks and it is important to be aware of possible unexpected outcomes. For instance, Polyglot will not always return the most factual or accurate response but the most statistically likely one. In addition, Polyglot may produce socially unacceptable or offensive content. We recommend having a human curator or other filtering mechanism to censor sensitive content.
