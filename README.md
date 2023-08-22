@@ -8,7 +8,7 @@ Therefore, someone might ask, "why do we need to make multilingual models again?
 
 ## 2. Projects
 
-### 1) Polyglot-Ko [DONE]
+### 1) Polyglot-Ko
 When we started our research, we have already had 1.2TB of Korean data collected by [TUNiB](https://tunib.ai/). Before we collected a large amount of multilingual data, we decided to try Korean modeling with the dataset we already had. This Korean model can be used for performance comparison with the multilingual models, and this model itself would help many Korean companies and researchers.
 
 | Size |                                      Training Status                                       |                           Model Card                            |                             Model Checkpoints                             |                            
@@ -23,7 +23,7 @@ When we started our research, we have already had 1.2TB of Korean data collected
 
 💡 We are collaborating with KoAlpaca team which is creating a series of Korean instruct fine-tuned models. As a result, we were able to release the Koalapca-Polyglot models. Please refer to [here](https://github.com/Beomi/KoAlpaca) to see more details.
 
-### 2) Japanese StableLM [DONE]
+### 2) Japanese StableLM
 We co-worked with StabilityAI Japan to create open source Japanese language models. We've mainly contributed to dataset collection part for this project.
 
 | Size        |                                      Training Status                                       |                                    Model Card                                      |                             Model Checkpoints                             |    
