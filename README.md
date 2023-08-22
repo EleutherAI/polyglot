@@ -25,7 +25,7 @@ Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Kichang Yang](htt
 ### 2) Japanese StableLM [DONE]
 We co-worked with StabilityAI Japan to create open source Japanese language models. We've mainly contributed to dataset collection part for this project.
 
-Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54)
+Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54), [KeunSeok Im](https://github.com/Mineru98)
 
 | Size        |                                      Training Status                                       |                                    Model Card                                      |                             Model Checkpoints                             |    
 |:-----------:|:------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
