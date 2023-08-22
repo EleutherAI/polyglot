@@ -23,7 +23,7 @@ Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Kichang Yang](htt
 💡 We are collaborating with KoAlpaca team which is creating a series of Korean instruct fine-tuned models. As a result, we were able to release the Koalapca-Polyglot models. Please refer to [here](https://github.com/Beomi/KoAlpaca) to see more details.
 
 ### 2) Japanese StableLM [DONE]
-We co-worked with StabilityAI Japan to create open source Japanese language models. We've mainly contributed to dataset collection part for this project. As a result we could release Japanese StableLM model series.
+We co-worked with StabilityAI Japan to create open source Japanese language models. We've mainly contributed to dataset collection part for this project.
 
 Contributors: [Hyunwoong Ko](https://github.com/hyunwoongko), [Fujiki Nakamura](https://github.com/fujiki-1emon), [Yunho Mo](https://github.com/momozzing), [Minji Jung](https://github.com/work82mj), [Sukyung Jang](https://github.com/skjang54)
 
